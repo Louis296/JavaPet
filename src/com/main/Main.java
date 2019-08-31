@@ -1,4 +1,5 @@
 package com.main;
+
 import com.frame.MainFrame;
 
 public class Main {
