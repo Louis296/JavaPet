@@ -10,44 +10,30 @@ public class MainFrame extends JFrame {
 
 	
 	public void go() {
-		this.setBounds(1000, 300, 500, 500);
+		this.setBounds(1000, 300, 500,500);
 		this.getContentPane().setLayout(null);
 		this.setTitle("²âÊÔ¶¯»­");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel jLabel=new Ready().go();
-		//this.add(jLabel);
+		this.add(jLabel);
 		
 		this.setAlwaysOnTop(true);
-		//this.setUndecorated(true);
-		//this.setBackground(new Color(0,0,0,0));
-		//this.setType(JFrame.Type.UTILITY);
+		this.setUndecorated(true);
+		this.setBackground(new Color(0,0,0,0));
+		this.setType(JFrame.Type.UTILITY);
 		
-		//this.setPopupMenu();
-		//this.setTray();
-		
-		JPopupMenu menu=new JPopupMenu();
-		JMenuItem exitItem=new JMenuItem("ÍË³ö");
-		JPanel panel=new JPanel();
-		
-		menu.add(exitItem);
-		panel.add(menu);
-		this.add(panel);
-		panel.addMouseListener(new MouseAdapter() {
-			public void mouseReleased(MouseEvent e) {
-				if(e.isPopupTrigger()) {
-					menu.show(panel, e.getX(),e.getY());
-				}
-			}
-		});
-		
-		//MouseEventListener mouseListener = new MouseEventListener(this);
-	    //jLabel.addMouseListener(mouseListener);
-	    //jLabel.addMouseMotionListener(mouseListener);
-	    
-	    
-	    
+		this.setPopupMenu();
+		this.setTray();
+				
+		//this.pack();
 		this.setVisible(true);
+		
+		MouseEventListener mouseListener = new MouseEventListener(this);
+	    jLabel.addMouseListener(mouseListener);
+	    jLabel.addMouseMotionListener(mouseListener);
+	    
+		
 		
 		
 	}
