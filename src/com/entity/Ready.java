@@ -1,12 +1,13 @@
 package com.entity;
 
-import java.awt.*;
+
 import javax.swing.*;
+import com.tool.Tools;
 
 public class Ready {
 	public JLabel go() {
 		JLabel jLabel=new JLabel();
-		this.cgJLabelImg(jLabel, "Image/Ready/0.png");
+		Tools.cgJLabelImg(jLabel, "Image/Ready/0.png");
 		
         new Thread(new Runnable() {
 			
@@ -15,7 +16,7 @@ public class Ready {
 				try{
 					while (true){
 						Thread.sleep(200);
-						cgJLabelImg(jLabel,"Image/Ready/"+ i++ +".png");
+						Tools.cgJLabelImg(jLabel,"Image/Ready/"+ i++ +".png");
 						if(i>3)i=0;
 					}
 				}catch (Exception e){
@@ -27,12 +28,5 @@ public class Ready {
         return jLabel;
 	}
 	
-	private void cgJLabelImg(JLabel jLabel,String imgUrl){
-		ImageIcon icon = new ImageIcon(imgUrl);
-		int picWidth = icon.getIconWidth(),pinHeight = icon.getIconHeight();
-		icon.setImage(icon.getImage().getScaledInstance(picWidth,pinHeight, Image.SCALE_DEFAULT));
-		jLabel.setBounds(0,0,picWidth,pinHeight);
-		jLabel.setIcon(icon);	
-		
-	}
+
 }
