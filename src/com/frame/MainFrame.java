@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import com.entity.*;
+import com.action.*;
 
 public class MainFrame extends JFrame {
 
@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
 		this.setTitle("≤‚ ‘∂Øª≠");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JLabel jLabel=new Ready().go();
+		JLabel jLabel=new Run().go();
 		this.add(jLabel);
 		
 		this.setAlwaysOnTop(true);
@@ -23,10 +23,10 @@ public class MainFrame extends JFrame {
 		this.setBackground(new Color(0,0,0,0));
 		this.setType(JFrame.Type.UTILITY);
 		
-		this.setPopupMenu();
+
 		this.setTray();
 				
-		//this.pack();
+
 		this.setVisible(true);
 		
 		MouseEventListener mouseListener = new MouseEventListener(this);
