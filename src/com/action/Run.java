@@ -2,6 +2,7 @@ package com.action;
 
 
 import javax.swing.*;
+import com.frame.MainFrame;
 import com.tool.Tools;
 
 public class Run {
@@ -9,21 +10,22 @@ public class Run {
 		JLabel jLabel=new JLabel();
 		Tools.cgJLabelImg(jLabel, "Image/Ready/0.png");
 		
-        new Thread(new Runnable() {
-			
-			public void run() {
-				int i=1;
-				try{
-					while (true){
-						Thread.sleep(200);
-						Tools.cgJLabelImg(jLabel,"Image/Ready/"+ i++ +".png");
-						if(i>3)i=0;
+        Thread runThread=new Thread(() -> {
+			int i=1;
+			try{
+				while (true){
+					Thread.sleep(200);
+					Tools.cgJLabelImg(jLabel,"Image/Ready/"+ i++ +".png");
+					if(i>3)i=0;
+					if("Run"!=MainFrame.flag){
+						break;
 					}
-				}catch (Exception e){
-					e.printStackTrace();
 				}
+			}catch (Exception e){
+				e.printStackTrace();
 			}
-		}).start();
+		});
+        runThread.start();
 		
         return jLabel;
 	}

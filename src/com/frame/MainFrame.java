@@ -7,17 +7,20 @@ import javax.swing.event.*;
 import com.action.*;
 
 public class MainFrame extends JFrame {
-
-	
+	JLabel jLabel;
+	public static String flag="Run";
 	public void go() {
 		this.setBounds(1000, 300, 500,500);
 		this.getContentPane().setLayout(null);
 		this.setTitle("测试动画");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		JLabel jLabel=new Run().go();
+
+		if ("Run"==flag){
+			jLabel=new Run().go();
+
+
+		}
 		this.add(jLabel);
-		
 		this.setAlwaysOnTop(true);
 		this.setUndecorated(true);
 		this.setBackground(new Color(0,0,0,0));
@@ -37,41 +40,39 @@ public class MainFrame extends JFrame {
 		
 		
 	}
-	
-	private void setPopupMenu() {
-		JPopupMenu menu=new JPopupMenu();
-		JMenuItem exitItem=new JMenuItem("退出");
-		JPanel panel=new JPanel();
-		
-		menu.add(exitItem);
-		panel.add(menu);
-		this.add(panel);
-		panel.addMouseListener(new MouseAdapter() {
-			public void mouseReleased(MouseEvent e) {
-				if(e.isPopupTrigger()) {
-					menu.show(panel, e.getX(),e.getY());
-				}
-			}
-		});
-		
-	}
-	
-	
+
 	private void setTray() {
 		if(SystemTray.isSupported()) {
 			SystemTray tray=SystemTray.getSystemTray();
 			
 			PopupMenu popMenu=new PopupMenu();
 			
-			MenuItem itemOpen=new MenuItem("打开");
-			itemOpen.addActionListener(e->System.out.println("打开"));
+			MenuItem itemOpen=new MenuItem("Open");
+			itemOpen.addActionListener(e->this.setVisible(true));
 			
-			MenuItem itemExit=new MenuItem("退出");
+			MenuItem itemExit=new MenuItem("Exit");
 			itemExit.addActionListener(e->System.exit(0));
-			
+
+			MenuItem itemClose=new MenuItem("Hide");
+			itemClose.addActionListener(e->this.setVisible(false));
+
+			MenuItem danceAction=new MenuItem("Dance");
+			danceAction.addActionListener(e->{
+				flag="Dance";
+				this.remove(jLabel);
+				jLabel=new Dance().go();
+
+				this.go();
+
+			});
+			Menu actionMenu=new Menu("Action");
+			actionMenu.add(danceAction);
+
 			popMenu.add(itemOpen);
+			popMenu.add(itemClose);
+			popMenu.add(actionMenu);
 			popMenu.add(itemExit);
-			
+
 			ImageIcon icon=new ImageIcon("trayIcon.png");
 			Image image=icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT);
 			
@@ -87,7 +88,7 @@ public class MainFrame extends JFrame {
 
 		}
 	}
-	
+
 	class MouseEventListener implements MouseInputListener {
 	     
 	    Point origin;
@@ -119,6 +120,7 @@ public class MainFrame extends JFrame {
 	    */
 	    @Override
 	    public void mouseEntered(MouseEvent e) {
+
 	    	this.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 	    }
 	     
@@ -127,6 +129,7 @@ public class MainFrame extends JFrame {
 	    */
 	    @Override
 	    public void mouseExited(MouseEvent e) {
+
 	    	this.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
 	    }
 	 

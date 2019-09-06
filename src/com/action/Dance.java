@@ -6,15 +6,15 @@ import com.tool.Tools;
 public class Dance {
     public JLabel go(){
         JLabel jLabel=new JLabel();
-        Tools.cgJLabelImg(jLabel,"Image/Dance/0.png");
+        Tools.cgJLabelImg(jLabel,"Image/Dance/dance01.png");
 
         new Thread(() -> {
-            int i=1;
+            int i=2;
             try{
                 while(true){
-                    Thread.sleep(200);
-                    Tools.cgJLabelImg(jLabel,"Image/Dance/"+i++ +".png");
-                    if(i>3)i=0;
+                    Thread.sleep(100);
+                    Tools.cgJLabelImg(jLabel,"Image/Dance/dance0"+i++ +".png");
+                    if(i>71)i=1;
                 }
             }catch (Exception e){
                 e.printStackTrace();
