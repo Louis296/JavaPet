@@ -17,8 +17,7 @@ public class MainFrame extends JFrame {
 
 		if ("Run"==flag){
 			jLabel=new Run().go();
-
-
+			setMouseMove(jLabel);
 		}
 		this.add(jLabel);
 		this.setAlwaysOnTop(true);
@@ -32,13 +31,17 @@ public class MainFrame extends JFrame {
 
 		this.setVisible(true);
 		
-		MouseEventListener mouseListener = new MouseEventListener(this);
-	    jLabel.addMouseListener(mouseListener);
-	    jLabel.addMouseMotionListener(mouseListener);
+
 	    
 		
 		
 		
+	}
+
+	public void setMouseMove(JLabel j){
+		MouseEventListener mouseListener=new MouseEventListener(this);
+		j.addMouseListener(mouseListener);
+		j.addMouseMotionListener(mouseListener);
 	}
 
 	private void setTray() {
@@ -61,10 +64,11 @@ public class MainFrame extends JFrame {
 				flag="Dance";
 				this.remove(jLabel);
 				jLabel=new Dance().go();
-
-				this.go();
-
+				setMouseMove(jLabel);
+				this.add(jLabel);
+				this.repaint();
 			});
+
 			Menu actionMenu=new Menu("Action");
 			actionMenu.add(danceAction);
 
@@ -73,10 +77,10 @@ public class MainFrame extends JFrame {
 			popMenu.add(actionMenu);
 			popMenu.add(itemExit);
 
-			ImageIcon icon=new ImageIcon("trayIcon.png");
+			ImageIcon icon=new ImageIcon("Image/MainIcon.png");
 			Image image=icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT);
 			
-			TrayIcon trayIcon = new TrayIcon(image,"zzw的火柴人",popMenu);
+			TrayIcon trayIcon = new TrayIcon(image,"Wxl的火柴人",popMenu);
 			trayIcon.setImageAutoSize(true); // 自适应尺寸，这个属性至关重要
 			
 			try {

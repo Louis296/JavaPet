@@ -13,8 +13,8 @@ public class Dance {
             try{
                 while(true){
                     Thread.sleep(100);
-                    Tools.cgJLabelImg(jLabel,"Image/Dance/dance0"+i++ +".png");
-                    if(i>71)i=1;
+                    Tools.cgJLabelImg(jLabel,"Image/Dance/dance "+i++ +".png");
+                    if(i>64)i=1;
                 }
             }catch (Exception e){
                 e.printStackTrace();
