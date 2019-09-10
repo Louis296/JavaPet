@@ -8,9 +8,11 @@ import com.action.*;
 
 public class MainFrame extends JFrame {
 	JLabel jLabel;
+	int x = 1000,y = 925;
+	int left,top;
 	public static String flag="Run";
 	public void go() {
-		this.setBounds(1000, 300, 500,500);
+		this.setBounds(1000, 925, 500,500);
 		this.getContentPane().setLayout(null);
 		this.setTitle("测试动画");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,30 +20,56 @@ public class MainFrame extends JFrame {
 		if ("Run"==flag){
 			jLabel=new Run().go();
 			setMouseMove(jLabel);
+			new Thread(()->{
+				try{
+
+					while(true){
+						Thread.sleep(20);
+						this.setLocation(x++,y);
+
+						this.setVisible(true);
+						left=this.getLocationOnScreen().x;
+						if("Run"!=flag){
+							break;
+						}
+						if(left>=1866){
+							while(true){
+								Thread.sleep(200);
+								left=this.getLocationOnScreen().x;
+								if(left<1866){
+									break;
+								}
+							}
+						}
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}).start();
 		}
 		this.add(jLabel);
 		this.setAlwaysOnTop(true);
 		this.setUndecorated(true);
 		this.setBackground(new Color(0,0,0,0));
 		this.setType(JFrame.Type.UTILITY);
-		
 
 		this.setTray();
-				
 
 		this.setVisible(true);
-		
-
-	    
-		
-		
-		
 	}
 
 	public void setMouseMove(JLabel j){
 		MouseEventListener mouseListener=new MouseEventListener(this);
 		j.addMouseListener(mouseListener);
 		j.addMouseMotionListener(mouseListener);
+	}
+
+	public Point getLocation(){
+		Point p=new Point();
+		p.x=jLabel.getX();
+		p.y=jLabel.getY();
+		SwingUtilities.convertPointToScreen(p,jLabel);
+		return p;
 	}
 
 	private void setTray() {
@@ -123,19 +151,13 @@ public class MainFrame extends JFrame {
 	    * 鼠标移进标题栏时，设置鼠标图标为移动图标
 	    */
 	    @Override
-	    public void mouseEntered(MouseEvent e) {
-
-	    	this.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-	    }
+	    public void mouseEntered(MouseEvent e) {}
 	     
 	    /**
 	    * 鼠标移出标题栏时，设置鼠标图标为默认指针
 	    */
 	    @Override
-	    public void mouseExited(MouseEvent e) {
-
-	    	this.frame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-	    }
+	    public void mouseExited(MouseEvent e) {}
 	 
 	    /**
 	    * 鼠标在标题栏拖拽时，设置窗口的坐标位置
@@ -144,9 +166,9 @@ public class MainFrame extends JFrame {
 	    @Override
 	    public void mouseDragged(MouseEvent e) {
 	    	Point p = this.frame.getLocation();
-	    	this.frame.setLocation(
-	    			p.x + (e.getX() - origin.x), 
-	    			p.y + (e.getY() - origin.y)); 
+			x=p.x + (e.getX() - origin.x);
+			y=p.y + (e.getY() - origin.y);
+			this.frame.setLocation(x,y);
 	    }
 	 
 	    @Override
