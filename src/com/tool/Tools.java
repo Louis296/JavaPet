@@ -11,6 +11,8 @@ public class Tools {
         jLabel.setBounds(0,0,picWidth,pinHeight);
         jLabel.setIcon(icon);
 
+
+
     }
 
 

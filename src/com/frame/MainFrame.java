@@ -20,32 +20,7 @@ public class MainFrame extends JFrame {
 		if ("Run"==flag){
 			jLabel=new Run().go();
 			setMouseMove(jLabel);
-			new Thread(()->{
-				try{
 
-					while(true){
-						Thread.sleep(20);
-						this.setLocation(x++,y);
-
-						this.setVisible(true);
-						left=this.getLocationOnScreen().x;
-						if("Run"!=flag){
-							break;
-						}
-						if(left>=1866){
-							while(true){
-								Thread.sleep(200);
-								left=this.getLocationOnScreen().x;
-								if(left<1866){
-									break;
-								}
-							}
-						}
-					}
-				}catch (Exception e) {
-					e.printStackTrace();
-				}
-			}).start();
 		}
 		this.add(jLabel);
 		this.setAlwaysOnTop(true);
@@ -56,6 +31,34 @@ public class MainFrame extends JFrame {
 		this.setTray();
 
 		this.setVisible(true);
+
+		new Thread(()->{
+			try{
+
+				while(true){
+					Thread.sleep(20);
+					this.setLocation(x++,y);
+
+					left=this.getLocationOnScreen().x;
+
+					if("Run"!=flag){
+						break;
+					}
+					if(left>=1866){
+
+						while(true){
+							Thread.sleep(200);
+							left=this.getLocationOnScreen().x;
+							if(left<1866){
+								break;
+							}
+						}
+					}
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		}).start();
 	}
 
 	public void setMouseMove(JLabel j){
@@ -95,6 +98,33 @@ public class MainFrame extends JFrame {
 				setMouseMove(jLabel);
 				this.add(jLabel);
 				this.repaint();
+				new Thread(()-> {
+					try {
+
+						while (true) {
+							Thread.sleep(6401);
+							this.setLocation(x-=2, y);
+							left = this.getLocationOnScreen().x;
+							System.out.println(left);
+							if ("Dance" != flag) {
+								break;
+							}
+							if (left < 0) {
+
+								while (true) {
+									Thread.sleep(200);
+									left = this.getLocationOnScreen().x;
+
+									if (left >= 0) {
+										break;
+									}
+								}
+							}
+						}
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}).start();
 			});
 
 			Menu actionMenu=new Menu("Action");
@@ -127,7 +157,8 @@ public class MainFrame extends JFrame {
 	    //鼠标拖拽想要移动的目标组件
 	    MainFrame frame;
 	     
-	    public MouseEventListener(MainFrame frame) {
+	    
+		public MouseEventListener(MainFrame frame) {
 	    	this.frame = frame;
 	    	origin = new Point();
 	    }

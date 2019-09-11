@@ -14,7 +14,11 @@ public class Dance {
                 while(true){
                     Thread.sleep(100);
                     Tools.cgJLabelImg(jLabel,"Image/Dance/dance "+i++ +".png");
-                    if(i>64)i=1;
+                    if(i>64){
+                        i=1;
+                        System.out.println("OK");
+                    }
+
                 }
             }catch (Exception e){
                 e.printStackTrace();

@@ -17,6 +17,7 @@ public class Run {
 					Thread.sleep(200);
 					Tools.cgJLabelImg(jLabel,"Image/Ready/"+ i++ +".png");
 					if(i>3)i=0;
+					System.out.println(i);
 					if("Run"!=MainFrame.flag){
 						break;
 					}
