@@ -11,18 +11,18 @@ public class Run {
 		Tools.cgJLabelImg(jLabel, "Image/Ready/0.png");
 		
         Thread runThread=new Thread(() -> {
-			int i=1;
-			try{
-				while (true){
+			int i = 1;
+			try {
+				while (true) {
 					Thread.sleep(200);
-					Tools.cgJLabelImg(jLabel,"Image/Ready/"+ i++ +".png");
-					if(i>3)i=0;
+					Tools.cgJLabelImg(jLabel, "Image/Ready/" + i++ + ".png");
+					if (i > 3) i = 0;
 					System.out.println(i);
-					if("Run"!=MainFrame.flag){
+					if ("Run" != MainFrame.flag) {
 						break;
 					}
 				}
-			}catch (Exception e){
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		});

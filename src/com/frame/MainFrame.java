@@ -22,6 +22,9 @@ public class MainFrame extends JFrame {
 			setMouseMove(jLabel);
 
 		}
+
+
+
 		this.add(jLabel);
 		this.setAlwaysOnTop(true);
 		this.setUndecorated(true);
@@ -127,8 +130,19 @@ public class MainFrame extends JFrame {
 				}).start();
 			});
 
+			MenuItem rabbitAction=new MenuItem("Rabbit");
+			rabbitAction.addActionListener(e->{
+				flag="Rabbit";
+				this.remove(jLabel);
+				jLabel=new GangguanDance().go();
+				setMouseMove(jLabel);
+				this.add(jLabel);
+				this.repaint();
+			});
+
 			Menu actionMenu=new Menu("Action");
 			actionMenu.add(danceAction);
+			actionMenu.add(rabbitAction);
 
 			popMenu.add(itemOpen);
 			popMenu.add(itemClose);
@@ -162,46 +176,45 @@ public class MainFrame extends JFrame {
 	    	this.frame = frame;
 	    	origin = new Point();
 	    }
-	     
-	    @Override
-	    public void mouseClicked(MouseEvent e) {}
-	 
-	    /**
-	    * 记录鼠标按下时的点
-	    */
-	    @Override
+
+		@Override
 	    public void mousePressed(MouseEvent e) {
 	    	origin.x = e.getX(); 
 	    	origin.y = e.getY();
 	    }
-	 
-	    @Override
-	    public void mouseReleased(MouseEvent e) {}
-	 
-	    /**
-	    * 鼠标移进标题栏时，设置鼠标图标为移动图标
-	    */
-	    @Override
-	    public void mouseEntered(MouseEvent e) {}
-	     
-	    /**
-	    * 鼠标移出标题栏时，设置鼠标图标为默认指针
-	    */
-	    @Override
-	    public void mouseExited(MouseEvent e) {}
-	 
-	    /**
-	    * 鼠标在标题栏拖拽时，设置窗口的坐标位置
-	    * 窗口新的坐标位置 = 移动前坐标位置+（鼠标指针当前坐标-鼠标按下时指针的位置）
-	    */
-	    @Override
-	    public void mouseDragged(MouseEvent e) {
-	    	Point p = this.frame.getLocation();
+
+		/**
+		 * 鼠标在标题栏拖拽时，设置窗口的坐标位置
+		 * 窗口新的坐标位置 = 移动前坐标位置+（鼠标指针当前坐标-鼠标按下时指针的位置）
+		 */
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			Point p = this.frame.getLocation();
 			x=p.x + (e.getX() - origin.x);
 			y=p.y + (e.getY() - origin.y);
 			this.frame.setLocation(x,y);
-	    }
-	 
+		}
+
+		@Override
+		public void mouseClicked(MouseEvent mouseEvent) {
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent mouseEvent) {
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent mouseEvent) {
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent mouseEvent) {
+
+		}
+
 	    @Override
 	    public void mouseMoved(MouseEvent e) {}
 	     
