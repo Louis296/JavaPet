@@ -5,25 +5,24 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import com.action.*;
+import com.tool.Tools;
 
 public class MainFrame extends JFrame {
 	JLabel jLabel;
 	int x = 1000,y = 925;
 	int left,top;
-	public static String flag="Run";
+	public static String actionflag ="Ready";
 	public void go() {
 		this.setBounds(1000, 925, 500,500);
 		this.getContentPane().setLayout(null);
 		this.setTitle("测试动画");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		if ("Run"==flag){
-			jLabel=new Run().go();
+		if ("Ready"== actionflag){
+			jLabel=new Ready().go();
 			setMouseMove(jLabel);
 
 		}
-
-
 
 		this.add(jLabel);
 		this.setAlwaysOnTop(true);
@@ -34,48 +33,25 @@ public class MainFrame extends JFrame {
 		this.setTray();
 
 		this.setVisible(true);
+		while (true){
+			Tools.pauseProgram(30);
+			setRunAction("L");
+			Tools.pauseProgram(5);
+			setDanceAction();
+			Tools.pauseProgram(20);
+			setRunAction("R");
+			Tools.pauseProgram(5);
+			setDanceAction();
+			Tools.pauseProgram(20);
+			setReadyAction();
+		}
 
-		new Thread(()->{
-			try{
-
-				while(true){
-					Thread.sleep(20);
-					this.setLocation(x++,y);
-
-					left=this.getLocationOnScreen().x;
-
-					if("Run"!=flag){
-						break;
-					}
-					if(left>=1866){
-
-						while(true){
-							Thread.sleep(200);
-							left=this.getLocationOnScreen().x;
-							if(left<1866){
-								break;
-							}
-						}
-					}
-				}
-			}catch (Exception e) {
-				e.printStackTrace();
-			}
-		}).start();
 	}
 
-	public void setMouseMove(JLabel j){
+	private void setMouseMove(JLabel j){
 		MouseEventListener mouseListener=new MouseEventListener(this);
 		j.addMouseListener(mouseListener);
 		j.addMouseMotionListener(mouseListener);
-	}
-
-	public Point getLocation(){
-		Point p=new Point();
-		p.x=jLabel.getX();
-		p.y=jLabel.getY();
-		SwingUtilities.convertPointToScreen(p,jLabel);
-		return p;
 	}
 
 	private void setTray() {
@@ -94,51 +70,10 @@ public class MainFrame extends JFrame {
 			itemClose.addActionListener(e->this.setVisible(false));
 
 			MenuItem danceAction=new MenuItem("Dance");
-			danceAction.addActionListener(e->{
-				flag="Dance";
-				this.remove(jLabel);
-				jLabel=new Dance().go();
-				setMouseMove(jLabel);
-				this.add(jLabel);
-				this.repaint();
-				new Thread(()-> {
-					try {
-
-						while (true) {
-							Thread.sleep(6401);
-							this.setLocation(x-=2, y);
-							left = this.getLocationOnScreen().x;
-							System.out.println(left);
-							if ("Dance" != flag) {
-								break;
-							}
-							if (left < 0) {
-
-								while (true) {
-									Thread.sleep(200);
-									left = this.getLocationOnScreen().x;
-
-									if (left >= 0) {
-										break;
-									}
-								}
-							}
-						}
-					} catch (Exception ex) {
-						ex.printStackTrace();
-					}
-				}).start();
-			});
+			danceAction.addActionListener(e->this.setDanceAction());
 
 			MenuItem rabbitAction=new MenuItem("Rabbit");
-			rabbitAction.addActionListener(e->{
-				flag="Rabbit";
-				this.remove(jLabel);
-				jLabel=new GangguanDance().go();
-				setMouseMove(jLabel);
-				this.add(jLabel);
-				this.repaint();
-			});
+			rabbitAction.addActionListener(e->this.setRabbitAction());
 
 			Menu actionMenu=new Menu("Action");
 			actionMenu.add(danceAction);
@@ -165,9 +100,140 @@ public class MainFrame extends JFrame {
 		}
 	}
 
+	private void setReadyAction(){
+		actionflag="Ready";
+		this.remove(jLabel);
+		jLabel=new Ready().go();
+		setMouseMove(jLabel);
+		this.add(jLabel);
+		this.repaint();
+	}
+
+	private void setRunAction(String direct){
+		this.remove(jLabel);
+		if (direct.equals("R")){
+			actionflag="RunRight";
+			jLabel=new RunRight().go();
+		}
+
+		if (direct.equals("L")){
+			actionflag="RunLeft";
+			jLabel=new RunLeft().go();
+		}
+
+		setMouseMove(jLabel);
+		this.add(jLabel);
+		this.repaint();
+		if (direct.equals("R")){
+			new Thread(()->{
+				try{
+
+					while(true){
+						Thread.sleep(20);
+						this.setLocation(x++,y);
+
+						left=this.getLocationOnScreen().x;
+
+						if("RunRight"!= actionflag){
+							break;
+						}
+						if(left>=1866){
+
+							while(true){
+								Thread.sleep(200);
+								left=this.getLocationOnScreen().x;
+								if(left<1866){
+									break;
+								}
+							}
+						}
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}).start();
+		}
+		if (direct.equals("L")){
+			new Thread(()->{
+				try{
+
+					while(true){
+						Thread.sleep(20);
+						this.setLocation(x--,y);
+
+						left=this.getLocationOnScreen().x;
+
+						if("RunLeft"!= actionflag){
+							break;
+						}
+						if(left<=0){
+
+							while(true){
+								Thread.sleep(200);
+								left=this.getLocationOnScreen().x;
+								if(left>0){
+									break;
+								}
+							}
+						}
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+			}).start();
+		}
+
+
+	}
+
+	private void setDanceAction(){
+			actionflag ="Dance";
+			this.remove(jLabel);
+			jLabel=new Dance().go();
+			setMouseMove(jLabel);
+			this.add(jLabel);
+			this.repaint();
+			new Thread(()-> {
+				try {
+
+					while (true) {
+						Thread.sleep(6401);
+						this.setLocation(x-=2, y);
+						left = this.getLocationOnScreen().x;
+						System.out.println(left);
+						if ("Dance" != actionflag) {
+							break;
+						}
+						if (left < 0) {
+
+							while (true) {
+								Thread.sleep(200);
+								left = this.getLocationOnScreen().x;
+
+								if (left >= 0) {
+									break;
+								}
+							}
+						}
+					}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}).start();
+	}
+
+	private void setRabbitAction(){
+			actionflag ="Rabbit";
+			this.remove(jLabel);
+			jLabel=new GangguanDance().go();
+			setMouseMove(jLabel);
+			this.add(jLabel);
+			this.repaint();
+	}
+
 	class MouseEventListener implements MouseInputListener {
 	     
-	    Point origin;
+	    Point origin=new Point();
 	    //鼠标拖拽想要移动的目标组件
 	    MainFrame frame;
 	     
@@ -189,36 +255,29 @@ public class MainFrame extends JFrame {
 		 */
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			Point p = this.frame.getLocation();
+			Point p = Tools.getLocation(this.frame.jLabel);
 			x=p.x + (e.getX() - origin.x);
 			y=p.y + (e.getY() - origin.y);
 			this.frame.setLocation(x,y);
 		}
 
 		@Override
-		public void mouseClicked(MouseEvent mouseEvent) {
-
-		}
+		public void mouseClicked(MouseEvent mouseEvent) {}
 
 		@Override
-		public void mouseReleased(MouseEvent mouseEvent) {
-
-		}
+		public void mouseReleased(MouseEvent mouseEvent) {}
 
 		@Override
-		public void mouseEntered(MouseEvent mouseEvent) {
-
-		}
+		public void mouseEntered(MouseEvent mouseEvent) {}
 
 		@Override
-		public void mouseExited(MouseEvent mouseEvent) {
-
-		}
+		public void mouseExited(MouseEvent mouseEvent) {}
 
 	    @Override
 	    public void mouseMoved(MouseEvent e) {}
 	     
 	}
+
 
 
 }
