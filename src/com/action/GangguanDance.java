@@ -1,5 +1,6 @@
 package com.action;
 
+import com.frame.MainFrame;
 import com.tool.Tools;
 
 import javax.swing.*;
@@ -18,6 +19,8 @@ public class GangguanDance {
                   if (i>196){
                       i=0;
                   }
+                  if (!MainFrame.actionflag.equals("Rabbit"))
+                      break;
               }
           }catch (Exception e){
               e.printStackTrace();

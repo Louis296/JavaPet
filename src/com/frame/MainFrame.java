@@ -9,11 +9,11 @@ import com.tool.Tools;
 
 public class MainFrame extends JFrame {
 	JLabel jLabel;
-	int x = 1000,y = 925;
+	int x = 1600,y = 25;
 	int left,top;
 	public static String actionflag ="Ready";
 	public void go() {
-		this.setBounds(1000, 925, 500,500);
+		this.setBounds(1600, 25, 500,500);
 		this.getContentPane().setLayout(null);
 		this.setTitle("²âÊÔ¶¯»­");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,15 +34,18 @@ public class MainFrame extends JFrame {
 
 		this.setVisible(true);
 		while (true){
+
 			Tools.pauseProgram(30);
 			setRunAction("L");
 			Tools.pauseProgram(5);
 			setDanceAction();
-			Tools.pauseProgram(20);
+			Tools.pauseProgram(7);
+			setThankAction();
+			Tools.pauseProgram(6.5f);
 			setRunAction("R");
 			Tools.pauseProgram(5);
 			setDanceAction();
-			Tools.pauseProgram(20);
+			Tools.pauseProgram(7);
 			setReadyAction();
 		}
 
@@ -187,48 +190,32 @@ public class MainFrame extends JFrame {
 	}
 
 	private void setDanceAction(){
-			actionflag ="Dance";
-			this.remove(jLabel);
-			jLabel=new Dance().go();
-			setMouseMove(jLabel);
-			this.add(jLabel);
-			this.repaint();
-			new Thread(()-> {
-				try {
+		actionflag ="Dance";
+		this.remove(jLabel);
+		jLabel=new Dance().go();
+		setMouseMove(jLabel);
+		this.add(jLabel);
+		this.repaint();
 
-					while (true) {
-						Thread.sleep(6401);
-						this.setLocation(x-=2, y);
-						left = this.getLocationOnScreen().x;
-						System.out.println(left);
-						if ("Dance" != actionflag) {
-							break;
-						}
-						if (left < 0) {
-
-							while (true) {
-								Thread.sleep(200);
-								left = this.getLocationOnScreen().x;
-
-								if (left >= 0) {
-									break;
-								}
-							}
-						}
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}).start();
 	}
 
 	private void setRabbitAction(){
-			actionflag ="Rabbit";
-			this.remove(jLabel);
-			jLabel=new GangguanDance().go();
-			setMouseMove(jLabel);
-			this.add(jLabel);
-			this.repaint();
+		actionflag ="Rabbit";
+		this.remove(jLabel);
+		jLabel=new GangguanDance().go();
+		setMouseMove(jLabel);
+		this.add(jLabel);
+		this.repaint();
+	}
+
+	private void setThankAction(){
+		actionflag="Thanks";
+		this.remove(jLabel);
+		jLabel=new Thanks().go();
+		setMouseMove(jLabel);
+		this.add(jLabel);
+		this.repaint();
+
 	}
 
 	class MouseEventListener implements MouseInputListener {

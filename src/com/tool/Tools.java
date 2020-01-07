@@ -22,9 +22,9 @@ public class Tools {
         return p;
     }
 
-    public static void pauseProgram(int second){
+    public static void pauseProgram(float second){
         try {
-            Thread.sleep(second*1000);
+            Thread.sleep((long) (second*1000));
         }catch (Exception e){
             e.printStackTrace();
         }

@@ -18,7 +18,7 @@ public class RunRight {
 					Tools.cgJLabelImg(jLabel, "Image/RunRight/" + i++ + ".png");
 					if (i > 3) i = 0;
 
-					if ("RunRight" != MainFrame.actionflag) {
+					if (!"RunRight".equals(MainFrame.actionflag)) {
 						break;
 					}
 				}

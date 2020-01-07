@@ -18,7 +18,7 @@ public class Ready {
                     Tools.cgJLabelImg(jLabel,"Image/Ready/Ready_ "+i++ +".png");
                     if (i>14) i=0;
 
-                    if ("Ready"!= MainFrame.actionflag){
+                    if (!"Ready".equals(MainFrame.actionflag)){
                         break;
                     }
                 }

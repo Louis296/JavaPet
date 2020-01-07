@@ -1,6 +1,8 @@
 package com.action;
 
 import javax.swing.*;
+
+import com.frame.MainFrame;
 import com.tool.Tools;
 
 public class Dance {
@@ -14,11 +16,11 @@ public class Dance {
                 while(true){
                     Thread.sleep(100);
                     Tools.cgJLabelImg(jLabel,"Image/Dance/dance "+i++ +".png");
-                    if(i>64){
-                        i=1;
-                        System.out.println("OK");
+                    if (i>64){
+                        i=0;
                     }
-
+                    if (!MainFrame.actionflag.equals("Dance"))
+                        break;
                 }
             }catch (Exception e){
                 e.printStackTrace();
