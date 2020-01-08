@@ -7,16 +7,18 @@ import javax.swing.event.*;
 import com.action.*;
 import com.tool.Tools;
 
-public class MainFrame extends JFrame {
+public class MainFrame {
 	JLabel jLabel;
 	int x = 1600,y = 25;
 	int left,top;
 	public static String actionflag ="Ready";
+	public static JFrame mainFrame;
 	public void go() {
-		this.setBounds(1600, 25, 500,500);
-		this.getContentPane().setLayout(null);
-		this.setTitle("测试动画");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame=new JFrame();
+		mainFrame.setBounds(1600, 25, 500,500);
+		mainFrame.getContentPane().setLayout(null);
+		mainFrame.setTitle("测试动画");
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		if ("Ready"== actionflag){
 			jLabel=new Ready().go();
@@ -24,35 +26,37 @@ public class MainFrame extends JFrame {
 
 		}
 
-		this.add(jLabel);
-		this.setAlwaysOnTop(true);
-		this.setUndecorated(true);
-		this.setBackground(new Color(0,0,0,0));
-		this.setType(JFrame.Type.UTILITY);
+		mainFrame.add(jLabel);
+		mainFrame.setAlwaysOnTop(true);
+		mainFrame.setUndecorated(true);
+		mainFrame.setBackground(new Color(0,0,0,0));
+		mainFrame.setType(JFrame.Type.UTILITY);
 
-		this.setTray();
+		setTray();
 
-		this.setVisible(true);
+		mainFrame.setVisible(true);
 		while (true){
+			if (!actionflag.equals("Info")){
+				Tools.pauseProgram(30);
+				setRunAction("L");
+				Tools.pauseProgram(5);
+				setDanceAction();
+				Tools.pauseProgram(7);
+				setThankAction();
+				Tools.pauseProgram(6.5f);
+				setRunAction("R");
+				Tools.pauseProgram(5);
+				setDanceAction();
+				Tools.pauseProgram(7);
+				setReadyAction();
+			}
 
-			Tools.pauseProgram(30);
-			setRunAction("L");
-			Tools.pauseProgram(5);
-			setDanceAction();
-			Tools.pauseProgram(7);
-			setThankAction();
-			Tools.pauseProgram(6.5f);
-			setRunAction("R");
-			Tools.pauseProgram(5);
-			setDanceAction();
-			Tools.pauseProgram(7);
-			setReadyAction();
 		}
 
 	}
 
 	private void setMouseMove(JLabel j){
-		MouseEventListener mouseListener=new MouseEventListener(this);
+		MouseEventListener mouseListener=new MouseEventListener();
 		j.addMouseListener(mouseListener);
 		j.addMouseMotionListener(mouseListener);
 	}
@@ -64,26 +68,30 @@ public class MainFrame extends JFrame {
 			PopupMenu popMenu=new PopupMenu();
 			
 			MenuItem itemOpen=new MenuItem("Open");
-			itemOpen.addActionListener(e->this.setVisible(true));
+			itemOpen.addActionListener(e->mainFrame.setVisible(true));
 			
 			MenuItem itemExit=new MenuItem("Exit");
 			itemExit.addActionListener(e->System.exit(0));
 
 			MenuItem itemClose=new MenuItem("Hide");
-			itemClose.addActionListener(e->this.setVisible(false));
+			itemClose.addActionListener(e->mainFrame.setVisible(false));
 
 			MenuItem danceAction=new MenuItem("Dance");
-			danceAction.addActionListener(e->this.setDanceAction());
+			danceAction.addActionListener(e->setDanceAction());
 
 			MenuItem rabbitAction=new MenuItem("Rabbit");
-			rabbitAction.addActionListener(e->this.setRabbitAction());
+			rabbitAction.addActionListener(e->setRabbitAction());
 
 			Menu actionMenu=new Menu("Action");
 			actionMenu.add(danceAction);
 			actionMenu.add(rabbitAction);
 
+			MenuItem infoItem=new MenuItem("Info");
+			infoItem.addActionListener(e->new InformationFrame().go());
+
 			popMenu.add(itemOpen);
 			popMenu.add(itemClose);
+			popMenu.add(infoItem);
 			popMenu.add(actionMenu);
 			popMenu.add(itemExit);
 
@@ -105,15 +113,15 @@ public class MainFrame extends JFrame {
 
 	private void setReadyAction(){
 		actionflag="Ready";
-		this.remove(jLabel);
+		mainFrame.remove(jLabel);
 		jLabel=new Ready().go();
 		setMouseMove(jLabel);
-		this.add(jLabel);
-		this.repaint();
+		mainFrame.add(jLabel);
+		mainFrame.repaint();
 	}
 
 	private void setRunAction(String direct){
-		this.remove(jLabel);
+		mainFrame.remove(jLabel);
 		if (direct.equals("R")){
 			actionflag="RunRight";
 			jLabel=new RunRight().go();
@@ -125,17 +133,17 @@ public class MainFrame extends JFrame {
 		}
 
 		setMouseMove(jLabel);
-		this.add(jLabel);
-		this.repaint();
+		mainFrame.add(jLabel);
+		mainFrame.repaint();
 		if (direct.equals("R")){
 			new Thread(()->{
 				try{
 
 					while(true){
 						Thread.sleep(20);
-						this.setLocation(x++,y);
+						mainFrame.setLocation(x++,y);
 
-						left=this.getLocationOnScreen().x;
+						left=mainFrame.getLocationOnScreen().x;
 
 						if("RunRight"!= actionflag){
 							break;
@@ -144,7 +152,7 @@ public class MainFrame extends JFrame {
 
 							while(true){
 								Thread.sleep(200);
-								left=this.getLocationOnScreen().x;
+								left=mainFrame.getLocationOnScreen().x;
 								if(left<1866){
 									break;
 								}
@@ -162,9 +170,9 @@ public class MainFrame extends JFrame {
 
 					while(true){
 						Thread.sleep(20);
-						this.setLocation(x--,y);
+						mainFrame.setLocation(x--,y);
 
-						left=this.getLocationOnScreen().x;
+						left=mainFrame.getLocationOnScreen().x;
 
 						if("RunLeft"!= actionflag){
 							break;
@@ -173,7 +181,7 @@ public class MainFrame extends JFrame {
 
 							while(true){
 								Thread.sleep(200);
-								left=this.getLocationOnScreen().x;
+								left=mainFrame.getLocationOnScreen().x;
 								if(left>0){
 									break;
 								}
@@ -191,30 +199,30 @@ public class MainFrame extends JFrame {
 
 	private void setDanceAction(){
 		actionflag ="Dance";
-		this.remove(jLabel);
+		mainFrame.remove(jLabel);
 		jLabel=new Dance().go();
 		setMouseMove(jLabel);
-		this.add(jLabel);
-		this.repaint();
+		mainFrame.add(jLabel);
+		mainFrame.repaint();
 
 	}
 
 	private void setRabbitAction(){
 		actionflag ="Rabbit";
-		this.remove(jLabel);
+		mainFrame.remove(jLabel);
 		jLabel=new GangguanDance().go();
 		setMouseMove(jLabel);
-		this.add(jLabel);
-		this.repaint();
+		mainFrame.add(jLabel);
+		mainFrame.repaint();
 	}
 
 	private void setThankAction(){
 		actionflag="Thanks";
-		this.remove(jLabel);
+		mainFrame.remove(jLabel);
 		jLabel=new Thanks().go();
 		setMouseMove(jLabel);
-		this.add(jLabel);
-		this.repaint();
+		mainFrame.add(jLabel);
+		mainFrame.repaint();
 
 	}
 
@@ -223,12 +231,7 @@ public class MainFrame extends JFrame {
 	    Point origin=new Point();
 	    //鼠标拖拽想要移动的目标组件
 	    MainFrame frame;
-	     
-	    
-		public MouseEventListener(MainFrame frame) {
-	    	this.frame = frame;
-	    	origin = new Point();
-	    }
+
 
 		@Override
 	    public void mousePressed(MouseEvent e) {
@@ -242,10 +245,10 @@ public class MainFrame extends JFrame {
 		 */
 		@Override
 		public void mouseDragged(MouseEvent e) {
-			Point p = Tools.getLocation(this.frame.jLabel);
+			Point p = Tools.getLocation(jLabel);
 			x=p.x + (e.getX() - origin.x);
 			y=p.y + (e.getY() - origin.y);
-			this.frame.setLocation(x,y);
+			mainFrame.setLocation(x,y);
 		}
 
 		@Override
