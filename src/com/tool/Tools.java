@@ -1,17 +1,19 @@
 package com.tool;
 
+import com.frame.InformationFrame;
+import com.frame.MainFrame;
+import com.main.Main;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Tools {
     public static void cgJLabelImg(JLabel jLabel, String imgUrl){
-
         ImageIcon icon = new ImageIcon(imgUrl);
         int picWidth = icon.getIconWidth(),pinHeight = icon.getIconHeight();
         icon.setImage(icon.getImage().getScaledInstance(picWidth,pinHeight, Image.SCALE_DEFAULT));
         jLabel.setBounds(0,0,picWidth,pinHeight);
         jLabel.setIcon(icon);
-
     }
 
     public static Point getLocation(JLabel jLabel){
@@ -22,9 +24,17 @@ public class Tools {
         return p;
     }
 
-    public static void pauseProgram(float second){
+    public static void pauseProgram(int second){
         try {
-            Thread.sleep((long) (second*1000));
+            int i=0;
+            while (true){
+                i++;
+                Thread.sleep(100);
+                if (i>second*10)
+                    break;
+                if (InformationFrame.infoflag)
+                    break;
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

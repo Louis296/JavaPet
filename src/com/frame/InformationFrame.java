@@ -1,6 +1,7 @@
 package com.frame;
 
 import com.action.Ready;
+import com.main.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,10 +9,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class InformationFrame {
+    public static Boolean infoflag=false;
     private JFrame frame;
     JPanel infoPanel;
     JPanel gifPanel;
     public void go(){
+        infoflag=true;
         frame =new JFrame("火柴人信息");
         frame.setBounds(300,400,700,500);
 
@@ -28,11 +31,14 @@ public class InformationFrame {
         frame.getContentPane().add(infoPanel,BorderLayout.CENTER);
         frame.getContentPane().add(gifPanel,BorderLayout.EAST);
 
+        MainFrame.actionflag="Ready";
         MainFrame.mainFrame.setVisible(false);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 frame.setVisible(false);
+                infoflag=false;
+                MainFrame.action=1;
                 MainFrame.mainFrame.setVisible(true);
             }
         });

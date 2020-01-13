@@ -11,20 +11,20 @@ public class MainFrame {
 	JLabel jLabel;
 	int x = 1600,y = 25;
 	int left,top;
+	public static int action=0;
 	public static String actionflag ="Ready";
 	public static JFrame mainFrame;
 	public void go() {
 		mainFrame=new JFrame();
 		mainFrame.setBounds(1600, 25, 500,500);
 		mainFrame.getContentPane().setLayout(null);
-		mainFrame.setTitle("²âÊÔ¶¯»­");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		if ("Ready"== actionflag){
-			jLabel=new Ready().go();
-			setMouseMove(jLabel);
 
-		}
+		jLabel=new Ready().go();
+		setMouseMove(jLabel);
+
+
 
 		mainFrame.add(jLabel);
 		mainFrame.setAlwaysOnTop(true);
@@ -36,21 +36,40 @@ public class MainFrame {
 
 		mainFrame.setVisible(true);
 		while (true){
-			if (!actionflag.equals("Info")){
-				Tools.pauseProgram(30);
-				setRunAction("L");
-				Tools.pauseProgram(5);
-				setDanceAction();
-				Tools.pauseProgram(7);
-				setThankAction();
-				Tools.pauseProgram(6.5f);
-				setRunAction("R");
-				Tools.pauseProgram(5);
-				setDanceAction();
-				Tools.pauseProgram(7);
-				setReadyAction();
-			}
 
+			if (action>5)
+				action=0;
+			if (!InformationFrame.infoflag){
+
+                switch (action){
+                    case 0:
+                        setReadyAction();
+                        Tools.pauseProgram(3);
+                        break;
+                    case 1:
+                        setRunAction("L");
+                        Tools.pauseProgram(5);
+                        break;
+                    case 2:
+                        setDanceAction();
+                        Tools.pauseProgram(7);
+                        break;
+                    case 3:
+                        setThankAction();
+                        Tools.pauseProgram(6);
+                        break;
+                    case 4:
+                        setRunAction("R");
+                        Tools.pauseProgram(5);
+                        break;
+                    case 5:
+                        setDanceAction();
+                        Tools.pauseProgram(7);
+                        break;
+                }
+            }
+
+            action++;
 		}
 
 	}
@@ -64,22 +83,22 @@ public class MainFrame {
 	private void setTray() {
 		if(SystemTray.isSupported()) {
 			SystemTray tray=SystemTray.getSystemTray();
-			
+
 			PopupMenu popMenu=new PopupMenu();
-			
+
 			MenuItem itemOpen=new MenuItem("Open");
 			itemOpen.addActionListener(e->mainFrame.setVisible(true));
-			
+
 			MenuItem itemExit=new MenuItem("Exit");
 			itemExit.addActionListener(e->System.exit(0));
 
 			MenuItem itemClose=new MenuItem("Hide");
 			itemClose.addActionListener(e->mainFrame.setVisible(false));
 
-			MenuItem danceAction=new MenuItem("Dance");
+			MenuItem danceAction=new MenuItem("dance");
 			danceAction.addActionListener(e->setDanceAction());
 
-			MenuItem rabbitAction=new MenuItem("Rabbit");
+			MenuItem rabbitAction=new MenuItem("rabbit");
 			rabbitAction.addActionListener(e->setRabbitAction());
 
 			Menu actionMenu=new Menu("Action");
@@ -97,10 +116,10 @@ public class MainFrame {
 
 			ImageIcon icon=new ImageIcon("Image/MainIcon.png");
 			Image image=icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT);
-			
-			TrayIcon trayIcon = new TrayIcon(image,"WxlµÄ»ğ²ñÈË",popMenu);
-			trayIcon.setImageAutoSize(true); // ×ÔÊÊÓ¦³ß´ç£¬Õâ¸öÊôĞÔÖÁ¹ØÖØÒª
-			
+
+			TrayIcon trayIcon = new TrayIcon(image,"Wxlçš„ç«æŸ´äºº",popMenu);
+			trayIcon.setImageAutoSize(true); // è‡ªé€‚åº”å°ºå¯¸ï¼Œè¿™ä¸ªå±æ€§è‡³å…³é‡è¦
+
 			try {
 				tray.add(trayIcon);
 			} catch (AWTException e1) {
@@ -172,11 +191,13 @@ public class MainFrame {
 						Thread.sleep(20);
 						mainFrame.setLocation(x--,y);
 
+                        if("RunLeft"!= actionflag){
+                            break;
+                        }
+
 						left=mainFrame.getLocationOnScreen().x;
 
-						if("RunLeft"!= actionflag){
-							break;
-						}
+
 						if(left<=0){
 
 							while(true){
@@ -193,7 +214,6 @@ public class MainFrame {
 				}
 			}).start();
 		}
-
 
 	}
 
@@ -214,6 +234,7 @@ public class MainFrame {
 		setMouseMove(jLabel);
 		mainFrame.add(jLabel);
 		mainFrame.repaint();
+
 	}
 
 	private void setThankAction(){
@@ -227,21 +248,20 @@ public class MainFrame {
 	}
 
 	class MouseEventListener implements MouseInputListener {
-	     
-	    Point origin=new Point();
-	    //Êó±êÍÏ×§ÏëÒªÒÆ¶¯µÄÄ¿±ê×é¼ş
-	    MainFrame frame;
+
+		Point origin=new Point();
+		//é¼ æ ‡æ‹–æ‹½æƒ³è¦ç§»åŠ¨çš„ç›®æ ‡ç»„ä»¶
 
 
 		@Override
-	    public void mousePressed(MouseEvent e) {
-	    	origin.x = e.getX(); 
-	    	origin.y = e.getY();
-	    }
+		public void mousePressed(MouseEvent e) {
+			origin.x = e.getX();
+			origin.y = e.getY();
+		}
 
 		/**
-		 * Êó±êÔÚ±êÌâÀ¸ÍÏ×§Ê±£¬ÉèÖÃ´°¿ÚµÄ×ø±êÎ»ÖÃ
-		 * ´°¿ÚĞÂµÄ×ø±êÎ»ÖÃ = ÒÆ¶¯Ç°×ø±êÎ»ÖÃ+£¨Êó±êÖ¸Õëµ±Ç°×ø±ê-Êó±ê°´ÏÂÊ±Ö¸ÕëµÄÎ»ÖÃ£©
+		 * é¼ æ ‡åœ¨æ ‡é¢˜æ æ‹–æ‹½æ—¶ï¼Œè®¾ç½®çª—å£çš„åæ ‡ä½ç½®
+		 * çª—å£æ–°çš„åæ ‡ä½ç½® = ç§»åŠ¨å‰åæ ‡ä½ç½®+ï¼ˆé¼ æ ‡æŒ‡é’ˆå½“å‰åæ ‡-é¼ æ ‡æŒ‰ä¸‹æ—¶æŒ‡é’ˆçš„ä½ç½®ï¼‰
 		 */
 		@Override
 		public void mouseDragged(MouseEvent e) {
@@ -263,9 +283,9 @@ public class MainFrame {
 		@Override
 		public void mouseExited(MouseEvent mouseEvent) {}
 
-	    @Override
-	    public void mouseMoved(MouseEvent e) {}
-	     
+		@Override
+		public void mouseMoved(MouseEvent e) {}
+
 	}
 
 
