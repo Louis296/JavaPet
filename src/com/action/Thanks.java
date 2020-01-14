@@ -1,6 +1,6 @@
 package com.action;
 
-import com.tool.Tools;
+import com.others.Tools;
 
 import javax.swing.*;
 

@@ -5,11 +5,11 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import com.action.*;
-import com.tool.Tools;
+import com.others.Tools;
 
 public class MainFrame {
-	JLabel jLabel;
-	int x = 1600,y = 25;
+	private JLabel jLabel;
+	private int x = 1600,y = 25;
 	int left,top;
 	public static int action=0;
 	public static String actionflag ="Ready";
@@ -20,11 +20,7 @@ public class MainFrame {
 		mainFrame.getContentPane().setLayout(null);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-		jLabel=new Ready().go();
-		setMouseMove(jLabel);
-
-
+		jLabel=new JLabel();
 
 		mainFrame.add(jLabel);
 		mainFrame.setAlwaysOnTop(true);
@@ -44,7 +40,7 @@ public class MainFrame {
                 switch (action){
                     case 0:
                         setReadyAction();
-                        Tools.pauseProgram(3);
+                        Tools.pauseProgram(5);
                         break;
                     case 1:
                         setRunAction("L");
@@ -162,11 +158,12 @@ public class MainFrame {
 						Thread.sleep(20);
 						mainFrame.setLocation(x++,y);
 
-						left=mainFrame.getLocationOnScreen().x;
-
-						if("RunRight"!= actionflag){
+						if(!"RunRight".equals(actionflag)){
 							break;
 						}
+
+						left=mainFrame.getLocationOnScreen().x;
+
 						if(left>=1866){
 
 							while(true){
@@ -191,7 +188,7 @@ public class MainFrame {
 						Thread.sleep(20);
 						mainFrame.setLocation(x--,y);
 
-                        if("RunLeft"!= actionflag){
+                        if(!"RunLeft".equals(actionflag)){
                             break;
                         }
 

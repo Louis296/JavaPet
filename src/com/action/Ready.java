@@ -1,7 +1,7 @@
 package com.action;
 
 import com.frame.MainFrame;
-import com.tool.Tools;
+import com.others.Tools;
 
 import javax.swing.*;
 

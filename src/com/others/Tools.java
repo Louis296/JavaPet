@@ -1,8 +1,6 @@
-package com.tool;
+package com.others;
 
 import com.frame.InformationFrame;
-import com.frame.MainFrame;
-import com.main.Main;
 
 import javax.swing.*;
 import java.awt.*;

@@ -3,7 +3,7 @@ package com.action;
 
 import javax.swing.*;
 import com.frame.MainFrame;
-import com.tool.Tools;
+import com.others.Tools;
 
 public class RunLeft {
     public JLabel go() {
