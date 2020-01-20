@@ -5,20 +5,20 @@ import com.others.Tools;
 
 import javax.swing.*;
 
-public class Ready {
+public class Egg {
     public JLabel go(){
         JLabel jLabel=new JLabel();
-        Tools.cgJLabelImg(jLabel,"Image/Ready/Ready_ 0.png");
+        Tools.cgJLabelImg(jLabel,"Image/Egg/r 0.png");
 
         Thread readyThread=new Thread(()->{
             int i=1;
             try{
                 while (true){
                     Thread.sleep(100);
-                    Tools.cgJLabelImg(jLabel,"Image/Ready/Ready_ "+i++ +".png");
-                    if (i>14) i=0;
+                    Tools.cgJLabelImg(jLabel,"Image/Egg/r "+i++ +".png");
+                    if (i>8) i=0;
 
-                    if (!"Ready".equals(MainFrame.actionflag)){
+                    if (!"Egg".equals(MainFrame.actionflag)){
                         break;
                     }
                 }
@@ -27,7 +27,6 @@ public class Ready {
             }
         });
         readyThread.start();
-
         return jLabel;
     }
 }

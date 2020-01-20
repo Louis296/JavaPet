@@ -1,5 +1,7 @@
 package com.frame;
 
+import com.others.Setting;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,12 +16,18 @@ public class OptionFrame {
 
         contentPanel=new JPanel();
         contentPanel.add(studyCheck);
+        studyCheck.addChangeListener(changeEvent -> {
+            JCheckBox checkBox=(JCheckBox) changeEvent.getSource();
+            Setting.wantstudy = checkBox.isSelected();
+        });
 
         buttonPanel=new JPanel();
         JButton confirmButton=new JButton("确认");
         JButton cancelButton=new JButton("取消");
         buttonPanel.add(confirmButton);
         buttonPanel.add(cancelButton);
+        confirmButton.addActionListener(e->frame.setVisible(false));
+        cancelButton.addActionListener(e->frame.setVisible(false));
 
         frame.getContentPane().add(contentPanel, BorderLayout.CENTER);
         frame.getContentPane().add(buttonPanel,BorderLayout.SOUTH);
@@ -33,4 +41,5 @@ public class OptionFrame {
         frame.setModalityType((Dialog.ModalityType.APPLICATION_MODAL));
         frame.setVisible(true);
     }
+
 }

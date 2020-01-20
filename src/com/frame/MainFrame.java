@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import com.action.*;
+import com.others.Setting;
 import com.others.Tools;
 
 public class MainFrame {
@@ -31,41 +32,11 @@ public class MainFrame {
 		setTray();
 
 		mainFrame.setVisible(true);
-		while (true){
-
-			if (action>5)
-				action=0;
-			if (!InformationFrame.infoflag){
-
-                switch (action){
-                    case 0:
-                        setReadyAction();
-                        Tools.pauseProgram(5);
-                        break;
-                    case 1:
-                        setRunAction("L");
-                        Tools.pauseProgram(5);
-                        break;
-                    case 2:
-                        setDanceAction();
-                        Tools.pauseProgram(7);
-                        break;
-                    case 3:
-                        setThankAction();
-                        Tools.pauseProgram(6);
-                        break;
-                    case 4:
-                        setRunAction("R");
-                        Tools.pauseProgram(5);
-                        break;
-                    case 5:
-                        setDanceAction();
-                        Tools.pauseProgram(7);
-                        break;
-                }
-            }
-
-            action++;
+		while(true){
+			if (Setting.getAge()==-1)
+				doBabyAction();
+			if (Setting.getAge()>=0)
+				doAdultAction();
 		}
 
 	}
@@ -242,6 +213,62 @@ public class MainFrame {
 		mainFrame.add(jLabel);
 		mainFrame.repaint();
 
+	}
+
+	private void setEggAction(){
+		actionflag="Egg";
+		mainFrame.remove(jLabel);
+		jLabel=new Egg().go();
+		setMouseMove(jLabel);
+		mainFrame.add(jLabel);
+		mainFrame.repaint();
+
+	}
+
+	private void doBabyAction(){
+		while(Setting.getAge()==-1){
+			if(!InformationFrame.infoflag) {
+				setEggAction();
+				Tools.pauseProgram(5);
+			}
+		}
+	}
+
+	private void doAdultAction(){
+		while (Setting.getAge()>=18){
+			if (!InformationFrame.infoflag){
+				if (action>5)
+					action=0;
+				switch (action){
+					case 0:
+						setReadyAction();
+						Tools.pauseProgram(5);
+						break;
+					case 1:
+						setRunAction("L");
+						Tools.pauseProgram(5);
+						break;
+					case 2:
+						setDanceAction();
+						Tools.pauseProgram(7);
+						break;
+					case 3:
+						setThankAction();
+						Tools.pauseProgram(6);
+						break;
+					case 4:
+						setRunAction("R");
+						Tools.pauseProgram(5);
+						break;
+					case 5:
+						setDanceAction();
+						Tools.pauseProgram(7);
+						break;
+
+				}
+				action++;
+			}
+		}
 	}
 
 	class MouseEventListener implements MouseInputListener {

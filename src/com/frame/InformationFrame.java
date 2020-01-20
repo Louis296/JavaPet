@@ -1,6 +1,7 @@
 package com.frame;
 
 import com.action.Ready;
+import com.others.Setting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,9 +22,9 @@ public class InformationFrame {
 
         infoPanel=new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel,BoxLayout.Y_AXIS));
-        infoPanel.add(new JLabel("  姓名： 火柴人"));
-        infoPanel.add(new JLabel("  性别： 火柴人"));
-        infoPanel.add(new JLabel("  爱好： 华农食堂"));
+        infoPanel.add(new JLabel("  姓名： "+ Setting.name));
+        infoPanel.add(new JLabel("  性别： "+Setting.sex));
+        infoPanel.add(new JLabel("  爱好： "+Setting.hobby));
         infoPanel.add(new JLabel("  最爱wxl啦！！！"));
 
         gifPanel=new JPanel();
@@ -54,16 +55,14 @@ public class InformationFrame {
             }
         });
         frame.setVisible(true);
-
     }
-
-
 
     public void closeFrame(){
         frame.setVisible(false);
         infoflag=false;
         MainFrame.action=0;
         MainFrame.mainFrame.setVisible(true);
+
     }
 
 
