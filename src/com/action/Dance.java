@@ -3,6 +3,7 @@ package com.action;
 import javax.swing.*;
 
 import com.frame.MainFrame;
+import com.others.State;
 import com.others.Tools;
 
 public class Dance {
@@ -19,7 +20,7 @@ public class Dance {
                     if (i>64){
                         i=0;
                     }
-                    if (!MainFrame.actionflag.equals("Dance"))
+                    if (MainFrame.actionState!= State.DANCE)
                         break;
                 }
             }catch (Exception e){

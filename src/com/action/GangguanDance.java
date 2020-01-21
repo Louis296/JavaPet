@@ -1,6 +1,7 @@
 package com.action;
 
 import com.frame.MainFrame;
+import com.others.State;
 import com.others.Tools;
 
 import javax.swing.*;
@@ -19,7 +20,7 @@ public class GangguanDance {
                   if (i>196){
                       i=0;
                   }
-                  if (!MainFrame.actionflag.equals("Rabbit"))
+                  if (MainFrame.actionState!= State.RABBIT)
                       break;
               }
           }catch (Exception e){

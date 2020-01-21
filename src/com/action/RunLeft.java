@@ -3,6 +3,7 @@ package com.action;
 
 import javax.swing.*;
 import com.frame.MainFrame;
+import com.others.State;
 import com.others.Tools;
 
 public class RunLeft {
@@ -18,7 +19,7 @@ public class RunLeft {
                     Tools.cgJLabelImg(jLabel, "Image/RunLeft/" + i++ + ".png");
                     if (i > 3) i = 0;
 
-                    if ("RunLeft" != MainFrame.actionflag) {
+                    if (MainFrame.actionState!= State.RUN_LEFT) {
                         break;
                     }
                 }

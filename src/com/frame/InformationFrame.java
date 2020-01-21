@@ -1,7 +1,10 @@
 package com.frame;
 
+import com.action.Baby;
+import com.action.Egg;
 import com.action.Ready;
 import com.others.Setting;
+import com.others.State;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +22,7 @@ public class InformationFrame {
         infoflag=true;
         frame =new JFrame("火柴人信息");
         frame.setBounds(300,400,300,200);
+        frame.setResizable(false);
 
         infoPanel=new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel,BoxLayout.Y_AXIS));
@@ -29,7 +33,19 @@ public class InformationFrame {
 
         gifPanel=new JPanel();
         gifPanel.setBackground(Color.gray);
-        gifPanel.add(new Ready().go());
+        if (Setting.getAge()==-1) {
+            gifPanel.add(new Egg().go());
+            MainFrame.actionState= State.EGG;
+        }
+        if (Setting.getAge()>=0&&Setting.getAge()<=3) {
+            gifPanel.add(new Baby().go());
+            MainFrame.actionState= State.BABY;
+        }
+        if (Setting.getAge()>=18) {
+            gifPanel.add(new Ready().go());
+            MainFrame.actionState= State.READY;
+        }
+
 
         buttonPanel=new JPanel();
         JButton confirmButton=new JButton("确定");
@@ -46,7 +62,7 @@ public class InformationFrame {
         frame.getContentPane().add(gifPanel,BorderLayout.EAST);
         frame.getContentPane().add(buttonPanel,BorderLayout.SOUTH);
 
-        MainFrame.actionflag="Ready";
+
         MainFrame.mainFrame.setVisible(false);
         frame.addWindowListener(new WindowAdapter() {
             @Override

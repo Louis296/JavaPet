@@ -6,20 +6,20 @@ import com.others.Tools;
 
 import javax.swing.*;
 
-public class Ready {
+public class Baby {
     public JLabel go(){
         JLabel jLabel=new JLabel();
-        Tools.cgJLabelImg(jLabel,"Image/Ready/Ready_ 0.png");
+        Tools.cgJLabelImg(jLabel,"Image/Baby/b 0.png");
 
         new Thread(()->{
             int i=1;
             try{
                 while (true){
                     Thread.sleep(100);
-                    Tools.cgJLabelImg(jLabel,"Image/Ready/Ready_ "+i++ +".png");
-                    if (i>14) i=0;
+                    Tools.cgJLabelImg(jLabel,"Image/Baby/b "+i++ +".png");
+                    if (i>23) i=0;
 
-                    if (MainFrame.actionState!= State.READY){
+                    if (MainFrame.actionState!= State.BABY){
                         break;
                     }
                 }
@@ -27,7 +27,6 @@ public class Ready {
                 e.printStackTrace();
             }
         }).start();
-
         return jLabel;
     }
 }

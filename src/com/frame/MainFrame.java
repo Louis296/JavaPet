@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import com.action.*;
 import com.others.Setting;
+import com.others.State;
 import com.others.Tools;
 
 public class MainFrame {
@@ -13,7 +14,7 @@ public class MainFrame {
 	private int x = 1600,y = 25;
 	int left,top;
 	public static int action=0;
-	public static String actionflag ="Ready";
+	public static State actionState=State.READY;
 	public static JFrame mainFrame;
 	public void go() {
 		mainFrame=new JFrame();
@@ -32,10 +33,13 @@ public class MainFrame {
 		setTray();
 
 		mainFrame.setVisible(true);
+
 		while(true){
 			if (Setting.getAge()==-1)
+				doEggAction();
+			if (Setting.getAge()>=0&&Setting.getAge()<=3)
 				doBabyAction();
-			if (Setting.getAge()>=0)
+			if (Setting.getAge()>=18)
 				doAdultAction();
 		}
 
@@ -62,15 +66,15 @@ public class MainFrame {
 			MenuItem itemClose=new MenuItem("Hide");
 			itemClose.addActionListener(e->mainFrame.setVisible(false));
 
-			MenuItem danceAction=new MenuItem("dance");
-			danceAction.addActionListener(e->setDanceAction());
+//			MenuItem danceAction=new MenuItem("dance");
+//			danceAction.addActionListener(e->setDanceAction());
+//
+//			MenuItem rabbitAction=new MenuItem("rabbit");
+//			rabbitAction.addActionListener(e->setRabbitAction());
 
-			MenuItem rabbitAction=new MenuItem("rabbit");
-			rabbitAction.addActionListener(e->setRabbitAction());
-
-			Menu actionMenu=new Menu("Action");
-			actionMenu.add(danceAction);
-			actionMenu.add(rabbitAction);
+//			Menu actionMenu=new Menu("Action");
+//			actionMenu.add(danceAction);
+//			actionMenu.add(rabbitAction);
 
 			MenuItem infoItem=new MenuItem("Info");
 			infoItem.addActionListener(e->new InformationFrame().go());
@@ -78,7 +82,7 @@ public class MainFrame {
 			popMenu.add(itemOpen);
 			popMenu.add(itemClose);
 			popMenu.add(infoItem);
-			popMenu.add(actionMenu);
+//			popMenu.add(actionMenu);
 			popMenu.add(itemExit);
 
 			ImageIcon icon=new ImageIcon("Image/MainIcon.png");
@@ -98,7 +102,7 @@ public class MainFrame {
 	}
 
 	private void setReadyAction(){
-		actionflag="Ready";
+		actionState=State.READY;
 		mainFrame.remove(jLabel);
 		jLabel=new Ready().go();
 		setMouseMove(jLabel);
@@ -109,12 +113,12 @@ public class MainFrame {
 	private void setRunAction(String direct){
 		mainFrame.remove(jLabel);
 		if (direct.equals("R")){
-			actionflag="RunRight";
+			actionState=State.RUN_RIGHT;
 			jLabel=new RunRight().go();
 		}
 
 		if (direct.equals("L")){
-			actionflag="RunLeft";
+			actionState=State.RUN_LEFT;
 			jLabel=new RunLeft().go();
 		}
 
@@ -129,7 +133,7 @@ public class MainFrame {
 						Thread.sleep(20);
 						mainFrame.setLocation(x++,y);
 
-						if(!"RunRight".equals(actionflag)){
+						if(actionState!=State.RUN_RIGHT){
 							break;
 						}
 
@@ -159,7 +163,7 @@ public class MainFrame {
 						Thread.sleep(20);
 						mainFrame.setLocation(x--,y);
 
-                        if(!"RunLeft".equals(actionflag)){
+                        if(actionState!=State.RUN_LEFT){
                             break;
                         }
 
@@ -186,7 +190,7 @@ public class MainFrame {
 	}
 
 	private void setDanceAction(){
-		actionflag ="Dance";
+		actionState=State.DANCE;
 		mainFrame.remove(jLabel);
 		jLabel=new Dance().go();
 		setMouseMove(jLabel);
@@ -196,7 +200,7 @@ public class MainFrame {
 	}
 
 	private void setRabbitAction(){
-		actionflag ="Rabbit";
+		actionState=State.RABBIT;
 		mainFrame.remove(jLabel);
 		jLabel=new GangguanDance().go();
 		setMouseMove(jLabel);
@@ -206,7 +210,7 @@ public class MainFrame {
 	}
 
 	private void setThankAction(){
-		actionflag="Thanks";
+		actionState=State.THANKS;
 		mainFrame.remove(jLabel);
 		jLabel=new Thanks().go();
 		setMouseMove(jLabel);
@@ -216,7 +220,7 @@ public class MainFrame {
 	}
 
 	private void setEggAction(){
-		actionflag="Egg";
+		actionState=State.EGG;
 		mainFrame.remove(jLabel);
 		jLabel=new Egg().go();
 		setMouseMove(jLabel);
@@ -225,10 +229,28 @@ public class MainFrame {
 
 	}
 
-	private void doBabyAction(){
+	private void setBabyAction(){
+		actionState=State.BABY;
+		mainFrame.remove(jLabel);
+		jLabel=new Baby().go();
+		setMouseMove(jLabel);
+		mainFrame.add(jLabel);
+		mainFrame.repaint();
+	}
+
+	private void doEggAction(){
 		while(Setting.getAge()==-1){
 			if(!InformationFrame.infoflag) {
 				setEggAction();
+				Tools.pauseProgram(5);
+			}
+		}
+	}
+
+	private void doBabyAction(){
+		while(Setting.getAge()>=0&&Setting.getAge()<=3){
+			if(!InformationFrame.infoflag) {
+				setBabyAction();
 				Tools.pauseProgram(5);
 			}
 		}

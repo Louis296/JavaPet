@@ -3,6 +3,7 @@ package com.action;
 
 import javax.swing.*;
 import com.frame.MainFrame;
+import com.others.State;
 import com.others.Tools;
 
 public class RunRight {
@@ -10,7 +11,7 @@ public class RunRight {
 		JLabel jLabel=new JLabel();
 		Tools.cgJLabelImg(jLabel, "Image/RunRight/0.png");
 		
-        Thread runThread=new Thread(() -> {
+        new Thread(() -> {
 			int i = 1;
 			try {
 				while (true) {
@@ -18,15 +19,14 @@ public class RunRight {
 					Tools.cgJLabelImg(jLabel, "Image/RunRight/" + i++ + ".png");
 					if (i > 3) i = 0;
 
-					if (!"RunRight".equals(MainFrame.actionflag)) {
+					if (MainFrame.actionState!= State.RUN_RIGHT) {
 						break;
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		});
-        runThread.start();
+		}).start();
 		
         return jLabel;
 	}
