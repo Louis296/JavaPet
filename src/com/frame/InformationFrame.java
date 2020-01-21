@@ -12,14 +12,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class InformationFrame {
-    public static Boolean infoflag=false;
     private JFrame frame;
     private JPanel infoPanel;
     private JPanel gifPanel;
     private JPanel buttonPanel;
 
     public void go(){
-        infoflag=true;
+        MainFrame.haveOtherFrame=true;
         frame =new JFrame("火柴人信息");
         frame.setBounds(300,400,300,200);
         frame.setResizable(false);
@@ -46,7 +45,6 @@ public class InformationFrame {
             MainFrame.actionState= State.READY;
         }
 
-
         buttonPanel=new JPanel();
         JButton confirmButton=new JButton("确定");
         JButton advanceButton=new JButton("高级");
@@ -62,7 +60,6 @@ public class InformationFrame {
         frame.getContentPane().add(gifPanel,BorderLayout.EAST);
         frame.getContentPane().add(buttonPanel,BorderLayout.SOUTH);
 
-
         MainFrame.mainFrame.setVisible(false);
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -73,9 +70,9 @@ public class InformationFrame {
         frame.setVisible(true);
     }
 
-    public void closeFrame(){
+    private void closeFrame(){
         frame.setVisible(false);
-        infoflag=false;
+        MainFrame.haveOtherFrame=false;
         MainFrame.action=0;
         MainFrame.mainFrame.setVisible(true);
 

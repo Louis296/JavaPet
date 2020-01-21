@@ -13,6 +13,7 @@ public class MainFrame {
 	private JLabel jLabel;
 	private int x = 1600,y = 25;
 	int left,top;
+	public static Boolean haveOtherFrame=false;
 	public static int action=0;
 	public static State actionState=State.READY;
 	public static JFrame mainFrame;
@@ -58,13 +59,20 @@ public class MainFrame {
 			PopupMenu popMenu=new PopupMenu();
 
 			MenuItem itemOpen=new MenuItem("Open");
-			itemOpen.addActionListener(e->mainFrame.setVisible(true));
+			itemOpen.addActionListener(e->{
+				MainFrame.haveOtherFrame=false;
+				action=0;
+				mainFrame.setVisible(true);
+			});
 
 			MenuItem itemExit=new MenuItem("Exit");
 			itemExit.addActionListener(e->System.exit(0));
 
 			MenuItem itemClose=new MenuItem("Hide");
-			itemClose.addActionListener(e->mainFrame.setVisible(false));
+			itemClose.addActionListener(e->{
+				MainFrame.haveOtherFrame=true;
+				mainFrame.setVisible(false);
+			});
 
 //			MenuItem danceAction=new MenuItem("dance");
 //			danceAction.addActionListener(e->setDanceAction());
@@ -79,8 +87,12 @@ public class MainFrame {
 			MenuItem infoItem=new MenuItem("Info");
 			infoItem.addActionListener(e->new InformationFrame().go());
 
+			MenuItem foodItem=new MenuItem("Food");
+			foodItem.addActionListener(e->new FoodFrame().go());
+
 			popMenu.add(itemOpen);
 			popMenu.add(itemClose);
+			popMenu.add(foodItem);
 			popMenu.add(infoItem);
 //			popMenu.add(actionMenu);
 			popMenu.add(itemExit);
@@ -209,7 +221,7 @@ public class MainFrame {
 
 	}
 
-	private void setThankAction(){
+	private void setThanksAction(){
 		actionState=State.THANKS;
 		mainFrame.remove(jLabel);
 		jLabel=new Thanks().go();
@@ -240,7 +252,7 @@ public class MainFrame {
 
 	private void doEggAction(){
 		while(Setting.getAge()==-1){
-			if(!InformationFrame.infoflag) {
+			if(!MainFrame.haveOtherFrame) {
 				setEggAction();
 				Tools.pauseProgram(5);
 			}
@@ -249,7 +261,7 @@ public class MainFrame {
 
 	private void doBabyAction(){
 		while(Setting.getAge()>=0&&Setting.getAge()<=3){
-			if(!InformationFrame.infoflag) {
+			if(!MainFrame.haveOtherFrame) {
 				setBabyAction();
 				Tools.pauseProgram(5);
 			}
@@ -258,7 +270,7 @@ public class MainFrame {
 
 	private void doAdultAction(){
 		while (Setting.getAge()>=18){
-			if (!InformationFrame.infoflag){
+			if (!MainFrame.haveOtherFrame){
 				if (action>5)
 					action=0;
 				switch (action){
@@ -275,7 +287,7 @@ public class MainFrame {
 						Tools.pauseProgram(7);
 						break;
 					case 3:
-						setThankAction();
+						setThanksAction();
 						Tools.pauseProgram(6);
 						break;
 					case 4:

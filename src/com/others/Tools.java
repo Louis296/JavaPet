@@ -1,6 +1,6 @@
 package com.others;
 
-import com.frame.InformationFrame;
+import com.frame.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,7 +30,7 @@ public class Tools {
                 Thread.sleep(100);
                 if (i>second*10)
                     break;
-                if (InformationFrame.infoflag)
+                if (MainFrame.haveOtherFrame)
                     break;
             }
         }catch (Exception e){
