@@ -10,7 +10,7 @@ public class Setting {
     static{
         name="火柴人";
         sex="火柴人";
-        age=19;
+        age=-1;
         hobby="华农食堂";
     }
 

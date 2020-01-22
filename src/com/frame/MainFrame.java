@@ -58,17 +58,17 @@ public class MainFrame {
 
 			PopupMenu popMenu=new PopupMenu();
 
-			MenuItem itemOpen=new MenuItem("Open");
+			MenuItem itemOpen=new MenuItem("显示");
 			itemOpen.addActionListener(e->{
 				MainFrame.haveOtherFrame=false;
 				action=0;
 				mainFrame.setVisible(true);
 			});
 
-			MenuItem itemExit=new MenuItem("Exit");
+			MenuItem itemExit=new MenuItem("退出");
 			itemExit.addActionListener(e->System.exit(0));
 
-			MenuItem itemClose=new MenuItem("Hide");
+			MenuItem itemClose=new MenuItem("隐藏");
 			itemClose.addActionListener(e->{
 				MainFrame.haveOtherFrame=true;
 				mainFrame.setVisible(false);
@@ -84,10 +84,10 @@ public class MainFrame {
 //			actionMenu.add(danceAction);
 //			actionMenu.add(rabbitAction);
 
-			MenuItem infoItem=new MenuItem("Info");
+			MenuItem infoItem=new MenuItem("信息面板");
 			infoItem.addActionListener(e->new InformationFrame().go());
 
-			MenuItem foodItem=new MenuItem("Food");
+			MenuItem foodItem=new MenuItem("火柴人的餐厅");
 			foodItem.addActionListener(e->new FoodFrame().go());
 
 			popMenu.add(itemOpen);
@@ -108,7 +108,6 @@ public class MainFrame {
 			} catch (AWTException e1) {
 				e1.printStackTrace();
 			}
-
 
 		}
 	}
@@ -256,6 +255,15 @@ public class MainFrame {
 				setEggAction();
 				Tools.pauseProgram(5);
 			}
+			else{
+				try {
+					while(MainFrame.haveOtherFrame){
+						Thread.sleep(100);
+					}
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
@@ -264,6 +272,15 @@ public class MainFrame {
 			if(!MainFrame.haveOtherFrame) {
 				setBabyAction();
 				Tools.pauseProgram(5);
+			}
+			else{
+				try {
+					while(MainFrame.haveOtherFrame){
+						Thread.sleep(100);
+					}
+				}catch (Exception e){
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -301,6 +318,15 @@ public class MainFrame {
 
 				}
 				action++;
+			}
+			else{
+				try {
+					while(MainFrame.haveOtherFrame){
+						Thread.sleep(100);
+					}
+				}catch (Exception e){
+					e.printStackTrace();
+				}
 			}
 		}
 	}

@@ -70,12 +70,12 @@ public class InformationFrame {
         frame.setVisible(true);
     }
 
-    private void closeFrame(){
+    public void closeFrame(){
         frame.setVisible(false);
-        MainFrame.haveOtherFrame=false;
         MainFrame.action=0;
-        MainFrame.mainFrame.setVisible(true);
+        MainFrame.haveOtherFrame=false;
 
+        MainFrame.mainFrame.setVisible(true);
     }
 
 
