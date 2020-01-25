@@ -38,7 +38,7 @@ public class OptionFrame {
                     150,100
                 )
         );
-        frame.setModalityType((Dialog.ModalityType.APPLICATION_MODAL));
+        frame.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         frame.setVisible(true);
     }
 

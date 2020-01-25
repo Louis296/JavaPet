@@ -27,8 +27,9 @@ public class InformationFrame {
         infoPanel.setLayout(new BoxLayout(infoPanel,BoxLayout.Y_AXIS));
         infoPanel.add(new JLabel("  姓名： "+ Setting.name));
         infoPanel.add(new JLabel("  性别： "+Setting.sex));
+        infoPanel.add(new JLabel("  年龄： "+Setting.age));
         infoPanel.add(new JLabel("  爱好： "+Setting.hobby));
-        infoPanel.add(new JLabel("  最爱wxl啦！！！"));
+        infoPanel.add(new JLabel("\n\n\n  最爱wxl啦！！！"));
 
         gifPanel=new JPanel();
         gifPanel.setBackground(Color.gray);
@@ -36,11 +37,11 @@ public class InformationFrame {
             gifPanel.add(new Egg().go());
             MainFrame.actionState= State.EGG;
         }
-        if (Setting.getAge()>=0&&Setting.getAge()<=3) {
+        if (Setting.getAge()>=0&&Setting.getAge()<=5) {
             gifPanel.add(new Baby().go());
             MainFrame.actionState= State.BABY;
         }
-        if (Setting.getAge()>=18) {
+        if (Setting.getAge()>=5) {
             gifPanel.add(new Ready().go());
             MainFrame.actionState= State.READY;
         }
@@ -74,7 +75,6 @@ public class InformationFrame {
         frame.setVisible(false);
         MainFrame.action=0;
         MainFrame.haveOtherFrame=false;
-
         MainFrame.mainFrame.setVisible(true);
     }
 

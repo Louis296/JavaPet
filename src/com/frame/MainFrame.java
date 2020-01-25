@@ -38,9 +38,11 @@ public class MainFrame {
 		while(true){
 			if (Setting.getAge()==-1)
 				doEggAction();
-			if (Setting.getAge()>=0&&Setting.getAge()<=3)
+			if (Setting.getAge()>=1&&Setting.getAge()<5)
 				doBabyAction();
-			if (Setting.getAge()>=18)
+			if (Setting.getAge()>=5&&Setting.getAge()<10)
+				doTeenagerAction();
+			if (Setting.getAge()>=10)
 				doAdultAction();
 		}
 
@@ -88,7 +90,7 @@ public class MainFrame {
 			infoItem.addActionListener(e->new InformationFrame().go());
 
 			MenuItem foodItem=new MenuItem("火柴人的餐厅");
-			foodItem.addActionListener(e->new FoodFrame().go());
+			foodItem.addActionListener(e->new RestaurantFrame().go());
 
 			popMenu.add(itemOpen);
 			popMenu.add(itemClose);
@@ -240,6 +242,16 @@ public class MainFrame {
 
 	}
 
+	private void setPlayBallAction(){
+		actionState=State.PLAYBALL;
+		mainFrame.remove(jLabel);
+		jLabel=new PlayBall().go();
+		setMouseMove(jLabel);
+		mainFrame.add(jLabel);
+		mainFrame.repaint();
+
+	}
+
 	private void setBabyAction(){
 		actionState=State.BABY;
 		mainFrame.remove(jLabel);
@@ -268,7 +280,7 @@ public class MainFrame {
 	}
 
 	private void doBabyAction(){
-		while(Setting.getAge()>=0&&Setting.getAge()<=3){
+		while(Setting.getAge()>=0&&Setting.getAge()<5){
 			if(!MainFrame.haveOtherFrame) {
 				setBabyAction();
 				Tools.pauseProgram(5);
@@ -285,8 +297,26 @@ public class MainFrame {
 		}
 	}
 
+	private void doTeenagerAction(){
+		while(Setting.getAge()>=5&&Setting.getAge()<10){
+			if(!MainFrame.haveOtherFrame) {
+				setPlayBallAction();
+				Tools.pauseProgram(8);
+			}
+			else{
+				try {
+					while(MainFrame.haveOtherFrame){
+						Thread.sleep(100);
+					}
+				}catch (Exception e){
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 	private void doAdultAction(){
-		while (Setting.getAge()>=18){
+		while (Setting.getAge()>=10){
 			if (!MainFrame.haveOtherFrame){
 				if (action>5)
 					action=0;

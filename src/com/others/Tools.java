@@ -4,6 +4,7 @@ import com.frame.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Tools {
     public static void cgJLabelImg(JLabel jLabel, String imgUrl){
@@ -38,4 +39,19 @@ public class Tools {
         }
     }
 
+    public static void closeFrame(JFrame frame) {
+        frame.setVisible(false);
+        MainFrame.haveOtherFrame = false;
+        MainFrame.action = 0;
+        MainFrame.mainFrame.setVisible(true);
+
+    }
+
+    public static String[] getListNameFrom(ArrayList<Food> foods){
+        ArrayList<String> s=new ArrayList<>();
+        for (Food food:foods){
+            s.add(food.getName());
+        }
+        return s.toArray(new String[s.size()]);
+    }
 }
