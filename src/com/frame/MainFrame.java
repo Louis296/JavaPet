@@ -92,10 +92,14 @@ public class MainFrame {
 			MenuItem foodItem=new MenuItem("火柴人的餐厅");
 			foodItem.addActionListener(e->new RestaurantFrame().go());
 
+			MenuItem incubatorItem=new MenuItem("孵化器");
+			incubatorItem.addActionListener(e->new IncubatorFrame().go());
+
 			popMenu.add(itemOpen);
 			popMenu.add(itemClose);
 			popMenu.add(foodItem);
 			popMenu.add(infoItem);
+			popMenu.add(incubatorItem);
 //			popMenu.add(actionMenu);
 			popMenu.add(itemExit);
 

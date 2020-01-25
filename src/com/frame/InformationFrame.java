@@ -5,6 +5,7 @@ import com.action.Egg;
 import com.action.Ready;
 import com.others.Setting;
 import com.others.State;
+import com.others.Tools;
 
 import javax.swing.*;
 import java.awt.*;
@@ -53,9 +54,9 @@ public class InformationFrame {
         buttonPanel.add(confirmButton);
         buttonPanel.add(advanceButton);
         buttonPanel.add(cancelButton);
-        confirmButton.addActionListener(e->closeFrame());
+        confirmButton.addActionListener(e->Tools.closeFrame(frame));
         advanceButton.addActionListener(e->new OptionFrame().go(frame));
-        cancelButton.addActionListener(e->closeFrame());
+        cancelButton.addActionListener(e->Tools.closeFrame(frame));
 
         frame.getContentPane().add(infoPanel,BorderLayout.CENTER);
         frame.getContentPane().add(gifPanel,BorderLayout.EAST);
@@ -65,18 +66,10 @@ public class InformationFrame {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                closeFrame();
+                Tools.closeFrame(frame);
             }
         });
         frame.setVisible(true);
     }
-
-    public void closeFrame(){
-        frame.setVisible(false);
-        MainFrame.action=0;
-        MainFrame.haveOtherFrame=false;
-        MainFrame.mainFrame.setVisible(true);
-    }
-
 
 }
