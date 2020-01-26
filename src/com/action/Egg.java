@@ -29,4 +29,27 @@ public class Egg {
         }).start();
         return jLabel;
     }
+
+    public JLabel go(int x,int y){
+        JLabel jLabel=new JLabel();
+        Tools.cgJLabelImg(jLabel,"Image/Egg/r 0.png",x,y);
+
+        new Thread(()->{
+            int i=1;
+            try{
+                while (true){
+                    Thread.sleep(100);
+                    Tools.cgJLabelImg(jLabel,"Image/Egg/r "+i++ +".png",x,y);
+                    if (i>8) i=0;
+
+                    if (MainFrame.actionState!= State.EGG){
+                        break;
+                    }
+                }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }).start();
+        return jLabel;
+    }
 }

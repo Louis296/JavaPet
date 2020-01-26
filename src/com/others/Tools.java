@@ -15,6 +15,14 @@ public class Tools {
         jLabel.setIcon(icon);
     }
 
+    public static void cgJLabelImg(JLabel jLabel,String imgUrl,int x,int y){
+        ImageIcon icon = new ImageIcon(imgUrl);
+        int picWidth = icon.getIconWidth(),pinHeight = icon.getIconHeight();
+        icon.setImage(icon.getImage().getScaledInstance(picWidth,pinHeight, Image.SCALE_DEFAULT));
+        jLabel.setBounds(x,y,picWidth,pinHeight);
+        jLabel.setIcon(icon);
+    }
+
     public static Point getLocation(JLabel jLabel){
         Point p=new Point();
         p.x=jLabel.getX();
