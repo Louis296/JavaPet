@@ -1,6 +1,7 @@
 package com.frame;
 
 import com.action.Egg;
+import com.others.Setting;
 import com.others.State;
 import com.others.Tools;
 
@@ -14,7 +15,6 @@ public class IncubatorFrame {
     private JProgressBar progressBar;
     private JPanel contentPanel;
     private Boolean isWorking=false;
-    private int workPresent=0;
     public void go(){
         MainFrame.haveOtherFrame=true;
         frame=new JFrame("孵化器");
@@ -23,7 +23,7 @@ public class IncubatorFrame {
 
         progressBar=new JProgressBar();
         progressBar.setStringPainted(true);
-        progressBar.setValue(workPresent);
+        progressBar.setValue(Setting.incubatePresent);
 
         contentPanel=new JPanel();
         contentPanel.setBackground(Color.gray);
@@ -67,16 +67,21 @@ public class IncubatorFrame {
         public void run() {
 
             try{
-                while(workPresent<=100&&isWorking){
-                    for (int i=0;i<90;i++){
-                        Thread.sleep(100);
+                while(Setting.incubatePresent<100&&isWorking){
+                    for (int i=0;i<3;i++){
+                        Thread.sleep(10);
                         if (!isWorking)
                             break;
                     }
                     if (!isWorking)
                         break;
-                    workPresent++;
-                    progressBar.setValue(workPresent);
+                    Setting.incubatePresent++;
+                    progressBar.setValue(Setting.incubatePresent);
+                }
+                if (Setting.incubatePresent==100){
+                    JOptionPane.showMessageDialog(frame,"孵化成功！！");
+                    Setting.age+=1;
+                    Tools.closeFrame(frame);
                 }
             }catch (Exception e){
                 e.printStackTrace();

@@ -12,7 +12,8 @@ import com.others.Tools;
 public class MainFrame {
 	private JLabel jLabel;
 	private int x = 1600,y = 25;
-	int left,top;
+	private int left;
+	private PopupMenu popMenu;
 	public static Boolean haveOtherFrame=false;
 	public static int action=0;
 	public static State actionState=State.READY;
@@ -36,14 +37,25 @@ public class MainFrame {
 		mainFrame.setVisible(true);
 
 		while(true){
-			if (Setting.getAge()==-1)
+			if (Setting.getAge()==-1) {
+				MenuItem incubatorItem=new MenuItem("孵化器");
+				incubatorItem.addActionListener(e->new IncubatorFrame().go());
+				popMenu.insert(incubatorItem,2);
 				doEggAction();
-			if (Setting.getAge()>=1&&Setting.getAge()<5)
+			}
+			if (Setting.getAge()>=0&&Setting.getAge()<5) {
+				popMenu.remove(2);
+				setRestaurantMenuItem();
 				doBabyAction();
-			if (Setting.getAge()>=5&&Setting.getAge()<10)
+			}
+			if (Setting.getAge()>=5&&Setting.getAge()<10) {
+				setRestaurantMenuItem();
 				doTeenagerAction();
-			if (Setting.getAge()>=10)
+			}
+			if (Setting.getAge()>=10) {
+				setRestaurantMenuItem();
 				doAdultAction();
+			}
 		}
 
 	}
@@ -54,11 +66,17 @@ public class MainFrame {
 		j.addMouseMotionListener(mouseListener);
 	}
 
+	private void setRestaurantMenuItem(){
+		MenuItem foodItem=new MenuItem("火柴人的餐厅");
+		foodItem.addActionListener(e->new RestaurantFrame().go());
+		popMenu.insert(foodItem,2);
+	}
+
 	private void setTray() {
 		if(SystemTray.isSupported()) {
 			SystemTray tray=SystemTray.getSystemTray();
 
-			PopupMenu popMenu=new PopupMenu();
+			popMenu=new PopupMenu();
 
 			MenuItem itemOpen=new MenuItem("显示");
 			itemOpen.addActionListener(e->{
@@ -81,7 +99,7 @@ public class MainFrame {
 //
 //			MenuItem rabbitAction=new MenuItem("rabbit");
 //			rabbitAction.addActionListener(e->setRabbitAction());
-
+//
 //			Menu actionMenu=new Menu("Action");
 //			actionMenu.add(danceAction);
 //			actionMenu.add(rabbitAction);
@@ -89,17 +107,9 @@ public class MainFrame {
 			MenuItem infoItem=new MenuItem("信息面板");
 			infoItem.addActionListener(e->new InformationFrame().go());
 
-			MenuItem foodItem=new MenuItem("火柴人的餐厅");
-			foodItem.addActionListener(e->new RestaurantFrame().go());
-
-			MenuItem incubatorItem=new MenuItem("孵化器");
-			incubatorItem.addActionListener(e->new IncubatorFrame().go());
-
 			popMenu.add(itemOpen);
 			popMenu.add(itemClose);
-			popMenu.add(foodItem);
 			popMenu.add(infoItem);
-			popMenu.add(incubatorItem);
 //			popMenu.add(actionMenu);
 			popMenu.add(itemExit);
 

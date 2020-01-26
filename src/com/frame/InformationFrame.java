@@ -30,21 +30,21 @@ public class InformationFrame {
         infoPanel.add(new JLabel("  性别： "+Setting.sex));
         infoPanel.add(new JLabel("  年龄： "+Setting.age));
         infoPanel.add(new JLabel("  爱好： "+Setting.hobby));
-        infoPanel.add(new JLabel("\n\n\n  最爱wxl啦！！！"));
+        infoPanel.add(new JLabel("  最爱wxl啦！！！"));
 
         gifPanel=new JPanel();
         gifPanel.setBackground(Color.gray);
         if (Setting.getAge()==-1) {
-            gifPanel.add(new Egg().go());
             MainFrame.actionState= State.EGG;
+            gifPanel.add(new Egg().go());
         }
         if (Setting.getAge()>=0&&Setting.getAge()<=5) {
-            gifPanel.add(new Baby().go());
             MainFrame.actionState= State.BABY;
+            gifPanel.add(new Baby().go());
         }
         if (Setting.getAge()>=5) {
-            gifPanel.add(new Ready().go());
             MainFrame.actionState= State.READY;
+            gifPanel.add(new Ready().go());
         }
 
         buttonPanel=new JPanel();
