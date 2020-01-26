@@ -18,7 +18,7 @@ public class OptionFrame {
         contentPanel.add(studyCheck);
         studyCheck.addChangeListener(changeEvent -> {
             JCheckBox checkBox=(JCheckBox) changeEvent.getSource();
-            Setting.wantstudy = checkBox.isSelected();
+            Setting.wantStudy = checkBox.isSelected();
         });
 
         buttonPanel=new JPanel();

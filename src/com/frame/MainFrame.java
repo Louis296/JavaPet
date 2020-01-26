@@ -2,9 +2,11 @@ package com.frame;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import com.action.*;
+import com.others.DataSaver;
 import com.others.Setting;
 import com.others.State;
 import com.others.Tools;
@@ -14,6 +16,8 @@ public class MainFrame {
 	private int x = 1600,y = 25;
 	private int left;
 	private PopupMenu popMenu;
+	private MenuItem incubatorItem;
+	private MenuItem restaurantItem;
 	public static Boolean haveOtherFrame=false;
 	public static int action=0;
 	public static State actionState=State.READY;
@@ -38,21 +42,23 @@ public class MainFrame {
 
 		while(true){
 			if (Setting.getAge()==-1) {
-				MenuItem incubatorItem=new MenuItem("孵化器");
+				incubatorItem=new MenuItem("孵化器");
 				incubatorItem.addActionListener(e->new IncubatorFrame().go());
 				popMenu.insert(incubatorItem,2);
 				doEggAction();
 			}
 			if (Setting.getAge()>=0&&Setting.getAge()<5) {
-				popMenu.remove(2);
+				popMenu.remove(incubatorItem);
 				setRestaurantMenuItem();
 				doBabyAction();
 			}
 			if (Setting.getAge()>=5&&Setting.getAge()<10) {
+				popMenu.remove(restaurantItem);
 				setRestaurantMenuItem();
 				doTeenagerAction();
 			}
 			if (Setting.getAge()>=10) {
+				popMenu.remove(restaurantItem);
 				setRestaurantMenuItem();
 				doAdultAction();
 			}
@@ -67,9 +73,9 @@ public class MainFrame {
 	}
 
 	private void setRestaurantMenuItem(){
-		MenuItem foodItem=new MenuItem("火柴人的餐厅");
-		foodItem.addActionListener(e->new RestaurantFrame().go());
-		popMenu.insert(foodItem,2);
+		restaurantItem =new MenuItem("火柴人的餐厅");
+		restaurantItem.addActionListener(e->new RestaurantFrame().go());
+		popMenu.insert(restaurantItem,2);
 	}
 
 	private void setTray() {
@@ -86,7 +92,17 @@ public class MainFrame {
 			});
 
 			MenuItem itemExit=new MenuItem("退出");
-			itemExit.addActionListener(e->System.exit(0));
+			itemExit.addActionListener(e->{
+				//暂时关闭存档的自动保存系统，方便程序调试
+//				try {
+//					FileOutputStream fs=new FileOutputStream(new File("Data.class"));
+//					ObjectOutputStream objectOutputStream=new ObjectOutputStream(fs);
+//					objectOutputStream.writeObject(new DataSaver());
+//				} catch (IOException ex) {
+//					ex.printStackTrace();
+//				}
+				System.exit(0);
+			});
 
 			MenuItem itemClose=new MenuItem("隐藏");
 			itemClose.addActionListener(e->{
@@ -415,7 +431,5 @@ public class MainFrame {
 		public void mouseMoved(MouseEvent e) {}
 
 	}
-
-
 
 }
