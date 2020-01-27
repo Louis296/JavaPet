@@ -15,9 +15,10 @@ public class IncubatorFrame {
     private JProgressBar progressBar;
     private JPanel contentPanel;
     private Boolean isWorking=false;
+
     public void go(){
         MainFrame.haveOtherFrame=true;
-        frame=new JFrame("孵化器");
+        frame=new JFrame("孵化温室");
         frame.setBounds(300,400,300,200);
         frame.setResizable(false);
 
@@ -42,7 +43,7 @@ public class IncubatorFrame {
             else{
                 isWorking=false;
                 startOrStop.setText("开始孵化");
-                frame.setTitle("孵化器");
+                frame.setTitle("孵化温室");
                 contentPanel.setBackground(Color.gray);
             }
         });
@@ -80,7 +81,14 @@ public class IncubatorFrame {
                 }
                 if (Setting.incubatePresent==100){
                     JOptionPane.showMessageDialog(frame,"孵化成功！！");
+                    Setting.name=JOptionPane.showInputDialog(frame,
+                            "幼小的火柴人睁开了眼，他出生的第一眼就看向了可爱的wxl，并把可爱的wxl认作了他的麻麻\n给幼小的火柴人取个名字吧！");
+                    JOptionPane.showMessageDialog(frame,"取名成功！把"+Setting.name+"养大吧！");
                     Setting.age+=1;
+                    if (Setting.name.equals("礼拜四")){
+                        JOptionPane.showMessageDialog(frame,"礼拜四：嘿嘿嘿我就知道麻麻最喜欢我啦，我来给麻麻跳兔子舞！");
+                        Setting.age=-2;
+                    }
                     Tools.closeFrame(frame);
                 }
             }catch (Exception e){

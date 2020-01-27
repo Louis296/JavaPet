@@ -60,7 +60,6 @@ public class FoodFrame {
             if (selectedIndex>=0) {
                 Setting.age+=foods.get(selectedIndex).getGrowAge();
                 JOptionPane.showMessageDialog(frame,"reui真难吃!\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁）");
-
             }
         });
         cancel.addActionListener(e->frame.setVisible(false));

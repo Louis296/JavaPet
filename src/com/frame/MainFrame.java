@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.io.*;
 import javax.swing.*;
 import javax.swing.event.*;
+
 import com.action.*;
 import com.others.DataSaver;
 import com.others.Setting;
@@ -18,6 +19,7 @@ public class MainFrame {
 	private PopupMenu popMenu;
 	private MenuItem incubatorItem;
 	private MenuItem restaurantItem;
+	private CheckboxMenuItem checkFollowItem;
 	public static Boolean haveOtherFrame=false;
 	public static int action=0;
 	public static State actionState=State.READY;
@@ -41,25 +43,45 @@ public class MainFrame {
 		mainFrame.setVisible(true);
 
 		while(true){
+
 			if (Setting.getAge()==-1) {
-				incubatorItem=new MenuItem("孵化器");
+				Setting.programLoading=false;
+				incubatorItem=new MenuItem("孵化温室");
 				incubatorItem.addActionListener(e->new IncubatorFrame().go());
 				popMenu.insert(incubatorItem,2);
 				doEggAction();
 			}
+			if (Setting.getAge()==-2){
+				Setting.programLoading=false;
+				popMenu.remove(incubatorItem);
+				popMenu.remove(2);
+				setRabbitAction();
+				break;
+			}
 			if (Setting.getAge()>=0&&Setting.getAge()<5) {
+				Setting.programLoading=false;
 				popMenu.remove(incubatorItem);
 				setRestaurantMenuItem();
 				doBabyAction();
 			}
 			if (Setting.getAge()>=5&&Setting.getAge()<10) {
+				if (!Setting.programLoading)
+			    	JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！");
+				Setting.programLoading=false;
 				popMenu.remove(restaurantItem);
 				setRestaurantMenuItem();
 				doTeenagerAction();
 			}
 			if (Setting.getAge()>=10) {
+				if (!Setting.programLoading)
+			    	JOptionPane.showMessageDialog(mainFrame,
+                        Setting.name+"长大了！\n火柴人学会了新技能：追随模式！\n（其实就是可以跟着wxl的鼠标跑了）");
+				Setting.programLoading=false;
 				popMenu.remove(restaurantItem);
 				setRestaurantMenuItem();
+                checkFollowItem=new CheckboxMenuItem("追随模式");
+                checkFollowItem.addItemListener(new FollowCheckListener());
+                popMenu.insert(checkFollowItem,3);
 				doAdultAction();
 			}
 		}
@@ -390,6 +412,47 @@ public class MainFrame {
 			}
 		}
 	}
+
+	class FollowCheckListener implements ItemListener{
+        Point currentPoint =new Point();
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            haveOtherFrame=true;
+            actionState=State.FOLLLOW;
+            mainFrame.remove(jLabel);
+            jLabel=new Follow().go();
+            mainFrame.add(jLabel);
+
+            new Thread(()->{
+                try {
+                    while (checkFollowItem.getState()){
+                        PointerInfo pointerInfo=MouseInfo.getPointerInfo();
+                        currentPoint=pointerInfo.getLocation();
+                        Thread.sleep(20);
+                    }
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                }
+            }).start();
+
+            new Thread(()->{
+                while (checkFollowItem.getState()){
+
+                    try {
+                        Thread.sleep(20);
+                    } catch (InterruptedException ex) {
+                        ex.printStackTrace();
+                    }
+                    mainFrame.setLocation(currentPoint.x+5,currentPoint.y+15);
+                }
+            }).start();
+
+            if (!checkFollowItem.getState()){
+            	mainFrame.setLocation(1600,25);
+                haveOtherFrame=false;
+            }
+        }
+    }
 
 	class MouseEventListener implements MouseInputListener {
 

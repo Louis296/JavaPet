@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
 public class Setting {
+    public static Boolean programLoading;
     public static String name;
     public static String sex;
     public static double age;
@@ -12,6 +13,7 @@ public class Setting {
     public static int incubatePresent;
 
     static{
+        programLoading=true;
         try{
             ObjectInputStream objectInputStream=new ObjectInputStream(new FileInputStream("Data.class"));
             DataSaver data=(DataSaver) objectInputStream.readObject();
@@ -23,9 +25,9 @@ public class Setting {
             incubatePresent=data.incubatePresent;
             objectInputStream.close();
         }catch (Exception e){
-            name="？？？";
+            name="十九";
             sex="薯片";
-            age=-1;
+            age=9.99;
             hobby="华农食堂";
         }
 
