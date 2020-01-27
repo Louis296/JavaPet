@@ -17,7 +17,7 @@ public class Follow {
                 while (true){
                     Thread.sleep(200);
                     Tools.cgJLabelImg(jLabel,"Image/Follow/f "+i++ +".png");
-                    if (i>2)
+                    if (i>3)
                         i=0;
                     if (MainFrame.actionState!= State.FOLLLOW)
                         break;

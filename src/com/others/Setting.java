@@ -2,6 +2,7 @@ package com.others;
 
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.util.Calendar;
 
 public class Setting {
     public static Boolean programLoading;
@@ -11,6 +12,7 @@ public class Setting {
     public static String hobby;
     public static Boolean wantStudy;
     public static int incubatePresent;
+    public static Calendar lastGoHUSTCalendar;
 
     static{
         programLoading=true;
@@ -27,8 +29,12 @@ public class Setting {
         }catch (Exception e){
             name="十九";
             sex="薯片";
-            age=9.99;
+            age=18;
             hobby="华农食堂";
+            wantStudy=false;
+            incubatePresent=0;
+            lastGoHUSTCalendar=Calendar.getInstance();
+            lastGoHUSTCalendar.add(Calendar.DATE,-7);
         }
 
     }

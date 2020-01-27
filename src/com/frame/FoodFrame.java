@@ -78,7 +78,7 @@ public class FoodFrame {
             selectedIndex=lsm.getLeadSelectionIndex();
 
             if (selectedIndex>=0){
-                infoOfFood.setText("描述：\n    "+foods.get(selectedIndex).getDescription());
+                infoOfFood.setText("描述：\n    "+foods.get(selectedIndex).getDescription()+"\n");
                 infoOfFood.append("\n效果：\n    "+"使火柴人长大"+foods.get(selectedIndex).getGrowAge()+"岁");
             }
         }
