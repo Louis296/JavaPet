@@ -13,7 +13,7 @@ public class Setting {
     public static Boolean wantStudy;
     public static int incubatePresent;
     public static Calendar lastGoHUSTCalendar;
-
+    public static Calendar lastEatCalendar;
     static{
         programLoading=true;
         try{
@@ -25,16 +25,20 @@ public class Setting {
             hobby=data.hobby;
             wantStudy=data.wantStudy;
             incubatePresent=data.incubatePresent;
+            lastGoHUSTCalendar=data.lastGoHUSTCalendar;
+            lastEatCalendar=data.lastEatCalendar;
             objectInputStream.close();
         }catch (Exception e){
             name="十九";
             sex="薯片";
-            age=4.99;
+            age=18;
             hobby="华农食堂";
             wantStudy=false;
             incubatePresent=0;
             lastGoHUSTCalendar=Calendar.getInstance();
             lastGoHUSTCalendar.add(Calendar.DATE,-7);
+            lastEatCalendar=Calendar.getInstance();
+            lastEatCalendar.add(Calendar.HOUR_OF_DAY,-3);
         }
 
     }

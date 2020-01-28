@@ -61,8 +61,18 @@ public class FoodFrame {
 
             eat.addActionListener(e-> {
                 if (selectedIndex>=0) {
-                    Setting.age+=foods.get(selectedIndex).getGrowAge();
-                    JOptionPane.showMessageDialog(frame,"reui真难吃!\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁）");
+                    if (Tools.couldEat()){
+                        Setting.age+=foods.get(selectedIndex).getGrowAge();
+                        if (RestaurantFrame.atHUST){
+                            JOptionPane.showMessageDialog(frame,Setting.name+"：啊这简直就是人间美味！\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁)");
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(frame,Setting.name+"：reui真难吃!\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁)");
+                        }
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(frame,Setting.name+"吃不下了！");
+                    }
                 }
             });
             cancel.addActionListener(e->frame.setVisible(false));

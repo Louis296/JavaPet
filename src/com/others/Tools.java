@@ -5,6 +5,7 @@ import com.frame.MainFrame;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Tools {
     public static void cgJLabelImg(JLabel jLabel, String imgUrl){
@@ -62,4 +63,22 @@ public class Tools {
         }
         return s.toArray(new String[s.size()]);
     }
+
+    public static boolean couldEat(){
+        boolean couldEat;
+        Calendar calendar=Calendar.getInstance();
+        if (calendar.get(Calendar.HOUR_OF_DAY)-Setting.lastEatCalendar.get(Calendar.HOUR_OF_DAY)>=3)
+            couldEat=true;
+        else if (calendar.get(Calendar.DAY_OF_YEAR)>Setting.lastEatCalendar.get(Calendar.DAY_OF_YEAR))
+            couldEat=true;
+        else if (calendar.get(Calendar.YEAR)>Setting.lastEatCalendar.get(Calendar.YEAR))
+            couldEat=true;
+        else
+            couldEat=false;
+        if (couldEat)
+            Setting.lastEatCalendar=calendar;
+        return couldEat;
+
+    }
+
 }

@@ -77,6 +77,7 @@ public class MainFrame {
 				if (!Setting.programLoading)
 			    	JOptionPane.showMessageDialog(mainFrame,
                         Setting.name+"长大了！\n解锁了新技能：追随模式！\n（其实就是可以跟着wxl的鼠标跑了）");
+				setRestaurantMenuItem();
 				Setting.programLoading=false;
                 checkFollowItem=new CheckboxMenuItem("追随模式");
                 checkFollowItem.addItemListener(new FollowCheckListener());

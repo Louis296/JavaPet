@@ -12,11 +12,15 @@ import java.util.Calendar;
 
 public class RestaurantFrame {
     public static ArrayList<FoodList<Food>> restaurants;
+    public static boolean atHUST;
     private JFrame frame;
     private JPanel buttonPanel;
     private JPanel HUSTPanel;
     private JMenuBar menuBar;
     public void go(){
+
+        atHUST=false;
+
         MainFrame.haveOtherFrame=true;
         MainFrame.actionState= State.STOP;
         frame=new JFrame("去哪里吃呢？");
@@ -30,13 +34,14 @@ public class RestaurantFrame {
         infoItem.addActionListener(e->JOptionPane.showMessageDialog(frame,"早上 7:00-9:00\n中午 11:00-13:00\n晚上 18:00-20:00"));
         JMenu helpMenu=new JMenu("华农太难吃了我不想吃华农了.....");
         JMenuItem helpItem=new JMenuItem("去找zzw吃点好的！");
-        helpItem.addActionListener(e -> {
+        helpItem.addActionListener(e1 -> {
             if (couldGoHUST()){
-
+                atHUST=true;
                 HUSTPanel=new JPanel();
                 HUSTPanel.setBorder(new EmptyBorder(5,5,5,5));
                 HUSTPanel.setLayout(new GridLayout(2,3,5,5));
                 JButton xiYi=new JButton(restaurants.get(6).getName());
+                xiYi.addActionListener(e->new FoodFrame().go(frame,restaurants.get(6)));
                 JButton baiJingYuan=new JButton(restaurants.get(7).getName());
                 HUSTPanel.add(xiYi);
                 HUSTPanel.add(baiJingYuan);
@@ -48,7 +53,7 @@ public class RestaurantFrame {
                 frame.getContentPane().add(HUSTPanel,BorderLayout.CENTER);
                 frame.validate();
             }else
-                JOptionPane.showMessageDialog(frame, Setting.name+"：md好远哦不想动，下周再说吧");
+                JOptionPane.showMessageDialog(frame, Setting.name+"：md好远哦不想动，过两三天再说吧");
         });
         helpMenu.add(helpItem);
         mainMenu.add(infoItem);
@@ -108,7 +113,9 @@ public class RestaurantFrame {
         FoodList<Food> buXingJie=new FoodList<>("步行街");
         FoodList<Food> zhuYuan=new FoodList<>("小卖部");
 
-        FoodList<Food> xiYi=new FoodList<>("西一");
+        FoodList<Food> xiYi=new FoodList<>("西一食堂");
+        xiYi.add(new Food("葱花炒蛋","wxl最喜欢的菜！没有之一！这道菜具有非常大的现实扭曲力，能让食用过的人内心极度欢乐，甚至感觉到此生无憾。据说wxl因为这道菜深爱上了zzw，这道菜的秘方除了制作人之外至今无人知晓",0.5));
+
         FoodList<Food> baiJingYuan=new FoodList<>("百景园");
         FoodList<Food> xiaoChiCheng=new FoodList<>("小吃城");
         FoodList<Food> jiJinYuan=new FoodList<>("集锦园");
@@ -135,11 +142,12 @@ public class RestaurantFrame {
     private boolean couldGoHUST(){
         boolean couldGo;
         Calendar calendar=Calendar.getInstance();
-        if (calendar.get(Calendar.DATE)-Setting.lastGoHUSTCalendar.get(Calendar.DATE)>=7)
+        if (calendar.get(Calendar.DAY_OF_YEAR)-Setting.lastGoHUSTCalendar.get(Calendar.DAY_OF_YEAR)>=3)
             couldGo=true;
         else
             couldGo=false;
-        Setting.lastGoHUSTCalendar=calendar;
+        if (couldGo)
+            Setting.lastGoHUSTCalendar=calendar;
         return couldGo;
     }
 }

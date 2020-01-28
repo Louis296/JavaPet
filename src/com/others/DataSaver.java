@@ -1,6 +1,7 @@
 package com.others;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 public class DataSaver implements Serializable {
     public String name;
@@ -9,7 +10,8 @@ public class DataSaver implements Serializable {
     public String hobby;
     public Boolean wantStudy;
     public int incubatePresent;
-
+    public Calendar lastGoHUSTCalendar;
+    public Calendar lastEatCalendar;
     public DataSaver(){
         name=Setting.name;
         sex=Setting.sex;
@@ -17,5 +19,7 @@ public class DataSaver implements Serializable {
         hobby=Setting.hobby;
         wantStudy=Setting.wantStudy;
         incubatePresent=Setting.incubatePresent;
+        lastGoHUSTCalendar=Setting.lastGoHUSTCalendar;
+        lastEatCalendar=Setting.lastEatCalendar;
     }
 }
