@@ -38,7 +38,7 @@ public class InformationFrame {
             MainFrame.actionState= State.EGG;
             gifPanel.add(new Egg().go());
         }
-        if (Setting.getAge()>=0&&Setting.getAge()<=5) {
+        if (Setting.getAge()>=0&&Setting.getAge()<5) {
             MainFrame.actionState= State.BABY;
             gifPanel.add(new Baby().go());
         }

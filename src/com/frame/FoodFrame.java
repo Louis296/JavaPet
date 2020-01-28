@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.util.Calendar;
 
 public class FoodFrame {
     private JDialog frame;
@@ -22,52 +23,70 @@ public class FoodFrame {
     private int selectedIndex=-1;
 
     public void go(JFrame fatherFrame, FoodList<Food> fs) {
-        foods=fs;
-        frame = new JDialog();
-        frame.setBounds(new Rectangle(
-                (int) fatherFrame.getBounds().getX()+50,
-                (int) fatherFrame.getBounds().getY()+50,
-                550,300
-        ));
-        frame.setTitle(foods.getName());
-        frame.setResizable(false);
+        if (isDinnerTime()){
 
-        foodList=new JList();
-        foodList.setListData(Tools.getListNameFrom(foods));
+            foods=fs;
+            frame = new JDialog();
+            frame.setBounds(new Rectangle(
+                    (int) fatherFrame.getBounds().getX()+50,
+                    (int) fatherFrame.getBounds().getY()+50,
+                    550,300
+            ));
+            frame.setTitle(foods.getName());
+            frame.setResizable(false);
 
-        selectPanel = new JPanel();
-        selectPanel.setBorder(new EmptyBorder(5,5,5,5));
-        selectPanel.setLayout(new BorderLayout(0,0));
-        foodList.getSelectionModel().addListSelectionListener(new ListSelectionHandle());
-        JScrollPane scrollPane=new JScrollPane();
-        scrollPane.setViewportView(foodList);
-        selectPanel.add(scrollPane,BorderLayout.CENTER);
+            foodList=new JList();
+            foodList.setListData(Tools.getListNameFrom(foods));
 
-        contentPanel = new JPanel();
-        contentPanel.setBorder(new EmptyBorder(5,5,5,5));
-        contentPanel.setLayout(new BoxLayout(contentPanel,BoxLayout.Y_AXIS));
-        infoOfFood= new JTextArea();
-        infoOfFood.setLineWrap(true);
-        JButton eat = new JButton("就吃它了！");
-        JButton cancel=new JButton("算了还是换个食堂吧");
-        buttonPanel=new JPanel();
-        buttonPanel.add(eat);
-        buttonPanel.add(cancel);
-        contentPanel.add(infoOfFood);
-        contentPanel.add(buttonPanel);
+            selectPanel = new JPanel();
+            selectPanel.setBorder(new EmptyBorder(5,5,5,5));
+            selectPanel.setLayout(new BorderLayout(0,0));
+            foodList.getSelectionModel().addListSelectionListener(new ListSelectionHandle());
+            JScrollPane scrollPane=new JScrollPane();
+            scrollPane.setViewportView(foodList);
+            selectPanel.add(scrollPane,BorderLayout.CENTER);
 
-        eat.addActionListener(e-> {
-            if (selectedIndex>=0) {
-                Setting.age+=foods.get(selectedIndex).getGrowAge();
-                JOptionPane.showMessageDialog(frame,"reui真难吃!\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁）");
-            }
-        });
-        cancel.addActionListener(e->frame.setVisible(false));
+            contentPanel = new JPanel();
+            contentPanel.setBorder(new EmptyBorder(5,5,5,5));
+            contentPanel.setLayout(new BoxLayout(contentPanel,BoxLayout.Y_AXIS));
+            infoOfFood= new JTextArea();
+            infoOfFood.setLineWrap(true);
+            JButton eat = new JButton("就吃它了！");
+            JButton cancel=new JButton("算了还是换个食堂吧");
+            buttonPanel=new JPanel();
+            buttonPanel.add(eat);
+            buttonPanel.add(cancel);
+            contentPanel.add(infoOfFood);
+            contentPanel.add(buttonPanel);
 
-        frame.getContentPane().add(selectPanel,BorderLayout.CENTER);
-        frame.getContentPane().add(contentPanel,BorderLayout.EAST);
-        frame.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        frame.setVisible(true);
+            eat.addActionListener(e-> {
+                if (selectedIndex>=0) {
+                    Setting.age+=foods.get(selectedIndex).getGrowAge();
+                    JOptionPane.showMessageDialog(frame,"reui真难吃!\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁）");
+                }
+            });
+            cancel.addActionListener(e->frame.setVisible(false));
+
+            frame.getContentPane().add(selectPanel,BorderLayout.CENTER);
+            frame.getContentPane().add(contentPanel,BorderLayout.EAST);
+            frame.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+            frame.setVisible(true);
+        }
+        else {
+            JOptionPane.showMessageDialog(fatherFrame,fs.getName()+"还没开门！现在不可以去哦！");
+        }
+    }
+
+    private boolean isDinnerTime(){
+        Calendar calendar=Calendar.getInstance();
+        int currentHour=calendar.get(Calendar.HOUR_OF_DAY);
+        if (currentHour>=7&&currentHour<=8)
+            return true;
+        if (currentHour>=11&&currentHour<=12)
+            return true;
+        if (currentHour>=18&&currentHour<=19)
+            return true;
+        return false;
     }
 
     class ListSelectionHandle implements ListSelectionListener{

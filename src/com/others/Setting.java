@@ -29,7 +29,7 @@ public class Setting {
         }catch (Exception e){
             name="十九";
             sex="薯片";
-            age=18;
+            age=4.99;
             hobby="华农食堂";
             wantStudy=false;
             incubatePresent=0;

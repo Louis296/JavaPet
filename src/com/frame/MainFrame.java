@@ -18,6 +18,7 @@ public class MainFrame {
 	private int left;
 	private PopupMenu popMenu;
 	private MenuItem incubatorItem;
+	private MenuItem babyFoodItem;
 	private MenuItem restaurantItem;
 	private CheckboxMenuItem checkFollowItem;
 	public static Boolean haveOtherFrame=false;
@@ -61,24 +62,22 @@ public class MainFrame {
 			if (Setting.getAge()>=0&&Setting.getAge()<5) {
 				Setting.programLoading=false;
 				popMenu.remove(incubatorItem);
-				setRestaurantMenuItem();
+				setBabyFoodItem();
 				doBabyAction();
 			}
 			if (Setting.getAge()>=5&&Setting.getAge()<10) {
 				if (!Setting.programLoading)
-			    	JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！");
+			    	JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新地点：华农食堂！");
 				Setting.programLoading=false;
-				popMenu.remove(restaurantItem);
+				popMenu.remove(babyFoodItem);
 				setRestaurantMenuItem();
 				doTeenagerAction();
 			}
 			if (Setting.getAge()>=10) {
 				if (!Setting.programLoading)
 			    	JOptionPane.showMessageDialog(mainFrame,
-                        Setting.name+"长大了！\n火柴人学会了新技能：追随模式！\n（其实就是可以跟着wxl的鼠标跑了）");
+                        Setting.name+"长大了！\n解锁了新技能：追随模式！\n（其实就是可以跟着wxl的鼠标跑了）");
 				Setting.programLoading=false;
-				popMenu.remove(restaurantItem);
-				setRestaurantMenuItem();
                 checkFollowItem=new CheckboxMenuItem("追随模式");
                 checkFollowItem.addItemListener(new FollowCheckListener());
                 popMenu.insert(checkFollowItem,3);
@@ -95,9 +94,15 @@ public class MainFrame {
 	}
 
 	private void setRestaurantMenuItem(){
-		restaurantItem =new MenuItem("火柴人的餐厅");
+		restaurantItem =new MenuItem("华农食堂");
 		restaurantItem.addActionListener(e->new RestaurantFrame().go());
 		popMenu.insert(restaurantItem,2);
+	}
+
+	private void setBabyFoodItem(){
+		babyFoodItem=new MenuItem("婴儿食品小卖部");
+		babyFoodItem.addActionListener(e->new BabyFoodFrame().go());
+		popMenu.insert(babyFoodItem,2);
 	}
 
 	private void setTray() {
