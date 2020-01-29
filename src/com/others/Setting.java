@@ -29,10 +29,10 @@ public class Setting {
             lastEatCalendar=data.lastEatCalendar;
             objectInputStream.close();
         }catch (Exception e){
-            name="十九";
-            sex="薯片";
-            age=18;
-            hobby="华农食堂";
+            name="？？？";
+            sex="？？？";
+            age=-1;
+            hobby="？？？";
             wantStudy=false;
             incubatePresent=0;
             lastGoHUSTCalendar=Calendar.getInstance();

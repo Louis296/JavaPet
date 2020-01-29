@@ -25,6 +25,7 @@ public class MainFrame {
 	public static int action=0;
 	public static State actionState=State.READY;
 	public static JFrame mainFrame;
+
 	public void go() {
 		mainFrame=new JFrame();
 		mainFrame.setBounds(1600, 25, 500,500);
@@ -66,8 +67,10 @@ public class MainFrame {
 				doBabyAction();
 			}
 			if (Setting.getAge()>=5&&Setting.getAge()<10) {
-				if (!Setting.programLoading)
-			    	JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新地点：华农食堂！");
+				if (!Setting.programLoading) {
+					Setting.hobby="华农食堂";
+					JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新地点：华农食堂！");
+				}
 				Setting.programLoading=false;
 				popMenu.remove(babyFoodItem);
 				setRestaurantMenuItem();
@@ -122,13 +125,13 @@ public class MainFrame {
 			MenuItem itemExit=new MenuItem("退出");
 			itemExit.addActionListener(e->{
 				//暂时关闭存档的自动保存系统，方便程序调试
-//				try {
-//					FileOutputStream fs=new FileOutputStream(new File("Data.class"));
-//					ObjectOutputStream objectOutputStream=new ObjectOutputStream(fs);
-//					objectOutputStream.writeObject(new DataSaver());
-//				} catch (IOException ex) {
-//					ex.printStackTrace();
-//				}
+				try {
+					FileOutputStream fs=new FileOutputStream(new File("Data.class"));
+					ObjectOutputStream objectOutputStream=new ObjectOutputStream(fs);
+					objectOutputStream.writeObject(new DataSaver());
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
 				System.exit(0);
 			});
 

@@ -83,7 +83,14 @@ public class IncubatorFrame {
                     JOptionPane.showMessageDialog(frame,"孵化成功！！");
                     Setting.name=JOptionPane.showInputDialog(frame,
                             "幼小的火柴人睁开了眼，他出生的第一眼就看向了可爱的wxl，并把可爱的wxl认作了他的麻麻\n给幼小的火柴人取个名字吧！");
+                    while (Setting.name==null||Setting.name.equals("")){
+                        JOptionPane.showMessageDialog(frame,"名字不能为空！！！","错误",JOptionPane.ERROR_MESSAGE);
+                        Setting.name=JOptionPane.showInputDialog(frame,
+                                "幼小的火柴人睁开了眼，他出生的第一眼就看向了可爱的wxl，并把可爱的wxl认作了他的麻麻\n给幼小的火柴人取个名字吧！");
+                    }
                     JOptionPane.showMessageDialog(frame,"取名成功！把"+Setting.name+"养大吧！");
+                    Setting.sex="薯片";
+                    Setting.hobby="未知";
                     Setting.age+=1;
                     if (Setting.name.equals("礼拜四")){
                         JOptionPane.showMessageDialog(frame,"礼拜四：嘿嘿嘿我就知道麻麻最喜欢我啦，我来给麻麻跳兔子舞！");

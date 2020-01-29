@@ -64,7 +64,7 @@ public class BabyFoodFrame {
                 }
             }
         });
-        cancel.addActionListener(e->frame.setVisible(false));
+        cancel.addActionListener(e->Tools.closeFrame(frame));
 
         frame.getContentPane().add(selectPanel,BorderLayout.CENTER);
         frame.getContentPane().add(contentPanel,BorderLayout.EAST);
