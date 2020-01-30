@@ -69,7 +69,7 @@ public class MainFrame {
 			if (Setting.getAge()>=5&&Setting.getAge()<10) {
 				if (!Setting.programLoading) {
 					Setting.hobby="华农食堂";
-					JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新地点：华农食堂！");
+					JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新的用餐地点：华农食堂！");
 				}
 				Setting.programLoading=false;
 				popMenu.remove(babyFoodItem);
@@ -79,12 +79,18 @@ public class MainFrame {
 			if (Setting.getAge()>=10) {
 				if (!Setting.programLoading)
 			    	JOptionPane.showMessageDialog(mainFrame,
-                        Setting.name+"长大了！\n解锁了新技能：追随模式！\n（其实就是可以跟着wxl的鼠标跑了）");
+                        Setting.name+"长大了！\n解锁了新技能：追随模式！\n（变成wxl的鼠标挂件）");
 				setRestaurantMenuItem();
 				Setting.programLoading=false;
+
                 checkFollowItem=new CheckboxMenuItem("追随模式");
                 checkFollowItem.addItemListener(new FollowCheckListener());
                 popMenu.insert(checkFollowItem,3);
+
+                MenuItem managerItem=new MenuItem("火柴人助理");
+                managerItem.addActionListener(e->new ManagerFrame().go());
+                popMenu.insert(managerItem,4);
+
 				doAdultAction();
 			}
 		}
@@ -141,29 +147,18 @@ public class MainFrame {
 				mainFrame.setVisible(false);
 			});
 
-//			MenuItem danceAction=new MenuItem("dance");
-//			danceAction.addActionListener(e->setDanceAction());
-//
-//			MenuItem rabbitAction=new MenuItem("rabbit");
-//			rabbitAction.addActionListener(e->setRabbitAction());
-//
-//			Menu actionMenu=new Menu("Action");
-//			actionMenu.add(danceAction);
-//			actionMenu.add(rabbitAction);
-
 			MenuItem infoItem=new MenuItem("信息面板");
 			infoItem.addActionListener(e->new InformationFrame().go());
 
 			popMenu.add(itemOpen);
 			popMenu.add(itemClose);
 			popMenu.add(infoItem);
-//			popMenu.add(actionMenu);
 			popMenu.add(itemExit);
 
 			ImageIcon icon=new ImageIcon("Image/MainIcon.png");
 			Image image=icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT);
 
-			TrayIcon trayIcon = new TrayIcon(image,"Wxl的火柴人",popMenu);
+			TrayIcon trayIcon = new TrayIcon(image,Setting.name,popMenu);
 			trayIcon.setImageAutoSize(true); // 自适应尺寸，这个属性至关重要
 
 			try {

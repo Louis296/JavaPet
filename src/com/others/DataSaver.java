@@ -19,7 +19,7 @@ public class DataSaver implements Serializable {
         hobby=Setting.hobby;
         wantStudy=Setting.wantStudy;
         incubatePresent=Setting.incubatePresent;
-        lastGoHUSTCalendar=Setting.lastGoHUSTCalendar;
-        lastEatCalendar=Setting.lastEatCalendar;
+        lastGoHUSTCalendar=Setting.nextGoHUSTCalendar;
+        lastEatCalendar=Setting.nextEatCalendar;
     }
 }

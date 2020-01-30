@@ -51,6 +51,7 @@ public class FoodFrame {
             contentPanel.setLayout(new BoxLayout(contentPanel,BoxLayout.Y_AXIS));
             infoOfFood= new JTextArea();
             infoOfFood.setLineWrap(true);
+            infoOfFood.setEditable(false);
             JButton eat = new JButton("就吃它了！");
             JButton cancel=new JButton("算了还是换个食堂吧");
             buttonPanel=new JPanel();

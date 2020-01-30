@@ -70,7 +70,7 @@ public class IncubatorFrame {
             try{
                 while(Setting.incubatePresent<100&&isWorking){
                     for (int i=0;i<3;i++){
-                        Thread.sleep(10);
+                        Thread.sleep(1000);
                         if (!isWorking)
                             break;
                     }

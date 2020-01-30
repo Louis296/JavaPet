@@ -66,19 +66,24 @@ public class Tools {
 
     public static boolean couldEat(){
         boolean couldEat;
-        Calendar calendar=Calendar.getInstance();
-        if (calendar.get(Calendar.HOUR_OF_DAY)-Setting.lastEatCalendar.get(Calendar.HOUR_OF_DAY)>=3)
-            couldEat=true;
-        else if (calendar.get(Calendar.DAY_OF_YEAR)>Setting.lastEatCalendar.get(Calendar.DAY_OF_YEAR))
-            couldEat=true;
-        else if (calendar.get(Calendar.YEAR)>Setting.lastEatCalendar.get(Calendar.YEAR))
+        Calendar current=Calendar.getInstance();
+        if (current.after(Setting.nextEatCalendar))
             couldEat=true;
         else
             couldEat=false;
-        if (couldEat)
-            Setting.lastEatCalendar=calendar;
+        if (couldEat){
+            current.add(Calendar.HOUR_OF_DAY,3);
+            Setting.nextEatCalendar =current;
+        }
         return couldEat;
 
     }
 
+    public static boolean isNumeric(String str){
+        for (int i=0;i<str.length();i++){
+            if (!Character.isDigit(str.charAt(i)))
+                return false;
+        }
+        return true;
+    }
 }

@@ -60,7 +60,7 @@ public class BabyFoodFrame {
                     JOptionPane.showMessageDialog(frame,Setting.name+"：reui真难吃!\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁）");
                 }
                 else {
-                    JOptionPane.showMessageDialog(frame,Setting.name+"吃不下了!");
+                    JOptionPane.showMessageDialog(frame,Setting.name+"：好撑！吃不下了！");
                 }
             }
         });
