@@ -7,18 +7,23 @@ import java.awt.*;
 
 public class OptionFrame {
     private JDialog frame;
-    private JCheckBox studyCheck;
+    private JCheckBox onTopCheck;
     private JPanel contentPanel;
     private JPanel buttonPanel;
+    private Boolean onTop;
     public void go(JFrame fatherFrame){
         frame=new JDialog();
-        studyCheck=new JCheckBox("火柴人提醒你学习哦");
+        frame.setTitle("高级选项");
+        onTopCheck =new JCheckBox("保持火柴人在所有窗口前");
+        onTopCheck.setSelected(Setting.onTop);
+        onTop=onTopCheck.isSelected();
+
 
         contentPanel=new JPanel();
-        contentPanel.add(studyCheck);
-        studyCheck.addChangeListener(changeEvent -> {
+        contentPanel.add(onTopCheck);
+        onTopCheck.addChangeListener(changeEvent -> {
             JCheckBox checkBox=(JCheckBox) changeEvent.getSource();
-            Setting.wantStudy = checkBox.isSelected();
+            onTop = checkBox.isSelected();
         });
 
         buttonPanel=new JPanel();
@@ -26,7 +31,11 @@ public class OptionFrame {
         JButton cancelButton=new JButton("取消");
         buttonPanel.add(confirmButton);
         buttonPanel.add(cancelButton);
-        confirmButton.addActionListener(e->frame.setVisible(false));
+        confirmButton.addActionListener(e->{
+            Setting.onTop=onTop;
+            MainFrame.mainFrame.setAlwaysOnTop(Setting.onTop);
+            frame.setVisible(false);
+        });
         cancelButton.addActionListener(e->frame.setVisible(false));
 
         frame.getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -35,9 +44,10 @@ public class OptionFrame {
                 new Rectangle(
                     (int) fatherFrame.getBounds().getX()+50,
                     (int) fatherFrame.getBounds().getY()+50,
-                    150,100
+                    180,100
                 )
         );
+        frame.setResizable(false);
         frame.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         frame.setVisible(true);
     }

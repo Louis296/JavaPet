@@ -8,7 +8,7 @@ public class DataSaver implements Serializable {
     public String sex;
     public double age;
     public String hobby;
-    public Boolean wantStudy;
+    public Boolean onTop;
 
     public int incubatePresent;
     public Calendar nextGoHUSTCalendar;
@@ -23,7 +23,7 @@ public class DataSaver implements Serializable {
         sex=Setting.sex;
         age=Setting.age;
         hobby=Setting.hobby;
-        wantStudy=Setting.wantStudy;
+        onTop =Setting.onTop;
         incubatePresent=Setting.incubatePresent;
         nextGoHUSTCalendar =Setting.nextGoHUSTCalendar;
         nextEatCalendar =Setting.nextEatCalendar;

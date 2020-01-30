@@ -36,7 +36,6 @@ public class MainFrame {
 		jLabel=new JLabel();
 
 		mainFrame.add(jLabel);
-		mainFrame.setAlwaysOnTop(true);
 		mainFrame.setUndecorated(true);
 		mainFrame.setBackground(new Color(0,0,0,0));
 		mainFrame.setType(JFrame.Type.UTILITY);

@@ -31,10 +31,12 @@ public class InformationFrame {
 
             infoPanel=new JPanel();
             infoPanel.setLayout(new BoxLayout(infoPanel,BoxLayout.Y_AXIS));
+            infoPanel.add(Box.createVerticalStrut(5));
             infoPanel.add(new JLabel("  姓名： "+ Setting.name));
             infoPanel.add(new JLabel("  性别： "+Setting.sex));
             infoPanel.add(new JLabel("  年龄： "+Setting.age));
             infoPanel.add(new JLabel("  爱好： "+Setting.hobby));
+            infoPanel.add(Box.createVerticalStrut(45));
             infoPanel.add(new JLabel("  最爱wxl啦！！！"));
 
             gifPanel=new JPanel();

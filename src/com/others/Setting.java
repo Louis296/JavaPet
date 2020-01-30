@@ -1,18 +1,21 @@
 package com.others;
 
+import com.frame.MainFrame;
+
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Calendar;
 
 public class Setting {
+    public static Boolean firstRun;
     public static Boolean programLoading;
 
     public static String name;
     public static String sex;
     public static double age;
     public static String hobby;
-    public static Boolean wantStudy;
+    public static Boolean onTop;
 
     public static int incubatePresent;
     public static Calendar nextGoHUSTCalendar;
@@ -28,11 +31,12 @@ public class Setting {
         try{
             ObjectInputStream objectInputStream=new ObjectInputStream(new FileInputStream("Data.class"));
             DataSaver data=(DataSaver) objectInputStream.readObject();
+            firstRun=false;
             name=data.name;
             sex=data.sex;
             age=data.age;
             hobby=data.hobby;
-            wantStudy=data.wantStudy;
+            onTop =data.onTop;
             incubatePresent=data.incubatePresent;
             nextGoHUSTCalendar =data.nextGoHUSTCalendar;
             nextEatCalendar =data.nextEatCalendar;
@@ -42,16 +46,18 @@ public class Setting {
             remindCalendar=data.remindCalendar;
             objectInputStream.close();
         }catch (Exception e){
+            firstRun=true;
             name="？？？";
             sex="？？？";
-            age=19;
+            age=10;
             hobby="？？？";
-            wantStudy=false;
+            onTop =true;
             incubatePresent=0;
             nextGoHUSTCalendar =Calendar.getInstance();
             nextEatCalendar =Calendar.getInstance();
             haveRemindMessage=false;
         }
+        MainFrame.mainFrame.setAlwaysOnTop(Setting.onTop);
         if (haveRemindMessage){
             new Thread(()->{
                 try{
