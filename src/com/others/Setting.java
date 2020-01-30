@@ -44,7 +44,7 @@ public class Setting {
         }catch (Exception e){
             name="？？？";
             sex="？？？";
-            age=18;
+            age=19;
             hobby="？？？";
             wantStudy=false;
             incubatePresent=0;

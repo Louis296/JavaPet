@@ -70,7 +70,7 @@ public class MainFrame {
 			if (Setting.getAge()>=5&&Setting.getAge()<10) {
 				if (!Setting.programLoading) {
 					Setting.hobby="华农食堂";
-					JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新的用餐地点：华农食堂！\n解锁了新的技能：追随模式！");
+					JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新的用餐地点：华农食堂！\n解锁了新的技能：追随模式！\n（可以挂在麻麻鼠标上啦！）");
 				}
 				Setting.programLoading=false;
 
@@ -86,7 +86,7 @@ public class MainFrame {
 			if (Setting.getAge()>=10) {
 				if (!Setting.programLoading)
 			    	JOptionPane.showMessageDialog(mainFrame,
-                        Setting.name+"长大了！\n解锁了新技能：火柴人助理！\n（可以帮提醒麻麻）");
+                        Setting.name+"长大了！\n解锁了新技能：火柴人助理！\n（可以帮麻麻记东西啦！）");
 				Setting.programLoading=false;
 
 				popMenu.remove(restaurantItem);

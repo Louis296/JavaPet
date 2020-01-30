@@ -53,7 +53,6 @@ public class ManagerFrame {
             mainPanel=new JPanel();
             mainPanel.setBorder(new EmptyBorder(5,5,5,5));
             mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
-            mainPanel.add(new JLabel("麻麻把事情告诉我，我帮你记着哦！"));
             mainPanel.add(Box.createVerticalStrut(5));
             mainPanel.add(messagePanel);
             JTextField contentInput=new JTextField();
@@ -64,7 +63,7 @@ public class ManagerFrame {
             mainPanel.add(timeInput);
 
             confirmButton.addActionListener(e->{
-                if (contentInput.getText()==null||timeInput.getText()==null)
+                if (contentInput.getText().equals("")||timeInput.getText().equals(""))
                     JOptionPane.showMessageDialog(frame,"信息没填全哦麻麻！");
                 else if (!Tools.isNumeric(timeInput.getText()))
                     JOptionPane.showMessageDialog(frame,"时间填错了哦麻麻！");

@@ -23,7 +23,7 @@ public class FoodFrame {
     private int selectedIndex=-1;
 
     public void go(JFrame fatherFrame, FoodList<Food> fs) {
-        if (isDinnerTime()||fs.getName().equals("小卖部")){
+        if (isDinnerTime()||fs.getName().equals("小卖部")||fs.getName().equals("小吃城")){
 
             foods=fs;
             frame = new JDialog();
@@ -75,7 +75,7 @@ public class FoodFrame {
                         }
                     }
                     else{
-                        JOptionPane.showMessageDialog(frame,Setting.name+"吃不下了！");
+                        JOptionPane.showMessageDialog(frame,Setting.name+"：好撑！吃不下了！");
                     }
                 }
             });
