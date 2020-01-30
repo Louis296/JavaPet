@@ -14,7 +14,7 @@ public class Main {
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
 			e.printStackTrace();
 		}
-//		new WelcomeFrame();
+		new WelcomeFrame();
 		new MainFrame().go();
 	}
 

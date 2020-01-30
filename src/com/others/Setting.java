@@ -49,7 +49,7 @@ public class Setting {
             firstRun=true;
             name="？？？";
             sex="？？？";
-            age=10;
+            age=-1;
             hobby="？？？";
             onTop =true;
             incubatePresent=0;
@@ -57,7 +57,6 @@ public class Setting {
             nextEatCalendar =Calendar.getInstance();
             haveRemindMessage=false;
         }
-        MainFrame.mainFrame.setAlwaysOnTop(Setting.onTop);
         if (haveRemindMessage){
             new Thread(()->{
                 try{
