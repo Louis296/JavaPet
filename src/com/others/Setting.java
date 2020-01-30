@@ -34,8 +34,12 @@ public class Setting {
             hobby=data.hobby;
             wantStudy=data.wantStudy;
             incubatePresent=data.incubatePresent;
-            nextGoHUSTCalendar =data.lastGoHUSTCalendar;
-            nextEatCalendar =data.lastEatCalendar;
+            nextGoHUSTCalendar =data.nextGoHUSTCalendar;
+            nextEatCalendar =data.nextEatCalendar;
+            haveRemindMessage=data.haveRemindMessage;
+            remindMessage=data.remindMessage;
+            remindTime=data.remindTime;
+            remindCalendar=data.remindCalendar;
             objectInputStream.close();
         }catch (Exception e){
             name="？？？";

@@ -9,9 +9,15 @@ public class DataSaver implements Serializable {
     public double age;
     public String hobby;
     public Boolean wantStudy;
+
     public int incubatePresent;
-    public Calendar lastGoHUSTCalendar;
-    public Calendar lastEatCalendar;
+    public Calendar nextGoHUSTCalendar;
+    public Calendar nextEatCalendar;
+
+    public boolean haveRemindMessage;
+    public String remindMessage;
+    public int remindTime;
+    public Calendar remindCalendar;
     public DataSaver(){
         name=Setting.name;
         sex=Setting.sex;
@@ -19,7 +25,11 @@ public class DataSaver implements Serializable {
         hobby=Setting.hobby;
         wantStudy=Setting.wantStudy;
         incubatePresent=Setting.incubatePresent;
-        lastGoHUSTCalendar=Setting.nextGoHUSTCalendar;
-        lastEatCalendar=Setting.nextEatCalendar;
+        nextGoHUSTCalendar =Setting.nextGoHUSTCalendar;
+        nextEatCalendar =Setting.nextEatCalendar;
+        haveRemindMessage=Setting.haveRemindMessage;
+        remindMessage=Setting.remindMessage;
+        remindTime=Setting.remindTime;
+        remindCalendar=Setting.remindCalendar;
     }
 }

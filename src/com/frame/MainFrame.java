@@ -3,6 +3,7 @@ package com.frame;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.util.Calendar;
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -69,23 +70,32 @@ public class MainFrame {
 			if (Setting.getAge()>=5&&Setting.getAge()<10) {
 				if (!Setting.programLoading) {
 					Setting.hobby="华农食堂";
-					JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新的用餐地点：华农食堂！");
+					JOptionPane.showMessageDialog(mainFrame,Setting.name+"长大了！\n解锁了新的用餐地点：华农食堂！\n解锁了新的技能：追随模式！");
 				}
 				Setting.programLoading=false;
+
 				popMenu.remove(babyFoodItem);
 				setRestaurantMenuItem();
+
+				checkFollowItem=new CheckboxMenuItem("追随模式");
+				checkFollowItem.addItemListener(new FollowCheckListener());
+				popMenu.insert(checkFollowItem,3);
+
 				doTeenagerAction();
 			}
 			if (Setting.getAge()>=10) {
 				if (!Setting.programLoading)
 			    	JOptionPane.showMessageDialog(mainFrame,
-                        Setting.name+"长大了！\n解锁了新技能：追随模式！\n（变成wxl的鼠标挂件）");
-				setRestaurantMenuItem();
+                        Setting.name+"长大了！\n解锁了新技能：火柴人助理！\n（可以帮提醒麻麻）");
 				Setting.programLoading=false;
 
-                checkFollowItem=new CheckboxMenuItem("追随模式");
-                checkFollowItem.addItemListener(new FollowCheckListener());
-                popMenu.insert(checkFollowItem,3);
+				popMenu.remove(restaurantItem);
+				setRestaurantMenuItem();
+
+				popMenu.remove(checkFollowItem);
+				checkFollowItem=new CheckboxMenuItem("追随模式");
+				checkFollowItem.addItemListener(new FollowCheckListener());
+				popMenu.insert(checkFollowItem,3);
 
                 MenuItem managerItem=new MenuItem("火柴人助理");
                 managerItem.addActionListener(e->new ManagerFrame().go());
@@ -358,6 +368,20 @@ public class MainFrame {
 			if(!MainFrame.haveOtherFrame) {
 				setPlayBallAction();
 				Tools.pauseProgram(8);
+				if (isHungry()){
+					actionState=State.HUNGRY;
+					mainFrame.remove(jLabel);
+					jLabel=new Hungry().go();
+					setMouseMove(jLabel);
+					mainFrame.add(jLabel);
+					mainFrame.repaint();
+					try {
+						while (isHungry())
+							Thread.sleep(100);
+					}catch (Exception e){
+						e.printStackTrace();
+					}
+				}
 			}
 			else{
 				try {
@@ -404,6 +428,21 @@ public class MainFrame {
 
 				}
 				action++;
+
+				if (isHungry()){
+					actionState=State.HUNGRY;
+					mainFrame.remove(jLabel);
+					jLabel=new Hungry().go();
+					setMouseMove(jLabel);
+					mainFrame.add(jLabel);
+					mainFrame.repaint();
+					try {
+						while (isHungry())
+							Thread.sleep(100);
+					}catch (Exception e){
+						e.printStackTrace();
+					}
+				}
 			}
 			else{
 				try {
@@ -415,6 +454,14 @@ public class MainFrame {
 				}
 			}
 		}
+	}
+
+	private boolean isHungry(){
+		Calendar current=Calendar.getInstance();
+		current.add(Calendar.DAY_OF_YEAR,-1);
+		if (current.after(Setting.nextEatCalendar))
+			return true;
+		return false;
 	}
 
 	class FollowCheckListener implements ItemListener{

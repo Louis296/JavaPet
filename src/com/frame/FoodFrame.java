@@ -23,7 +23,7 @@ public class FoodFrame {
     private int selectedIndex=-1;
 
     public void go(JFrame fatherFrame, FoodList<Food> fs) {
-        if (isDinnerTime()){
+        if (isDinnerTime()||fs.getName().equals("小卖部")){
 
             foods=fs;
             frame = new JDialog();
@@ -64,7 +64,10 @@ public class FoodFrame {
                 if (selectedIndex>=0) {
                     if (Tools.couldEat()){
                         Setting.age+=foods.get(selectedIndex).getGrowAge();
-                        if (RestaurantFrame.atHUST){
+                        if (foods.get(selectedIndex).getName().equals("脆皮鸡腿")){
+                            JOptionPane.showMessageDialog(frame,"宝宝我爱你！");
+                        }
+                        else if (RestaurantFrame.atHUST){
                             JOptionPane.showMessageDialog(frame,Setting.name+"：啊这简直就是人间美味！\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁)");
                         }
                         else {
