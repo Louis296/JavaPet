@@ -43,11 +43,11 @@ public class InformationFrame {
             gifPanel.setBackground(Color.gray);
             if (Setting.getAge()==-1) {
                 MainFrame.actionState= State.EGG;
-                gifPanel.add(new Egg().go());
+                gifPanel.add(new Egg().go(2,2));
             }
             if (Setting.getAge()>=0&&Setting.getAge()<5) {
                 MainFrame.actionState= State.BABY;
-                gifPanel.add(new Baby().go());
+                gifPanel.add(new Baby().go(2,2));
             }
             if (Setting.getAge()>=5) {
                 MainFrame.actionState= State.READY;

@@ -49,7 +49,7 @@ public class Setting {
             firstRun=true;
             name="？？？";
             sex="？？？";
-            age=-1;
+            age=3;
             hobby="？？？";
             onTop =true;
             incubatePresent=0;

@@ -1,5 +1,7 @@
 package com.action;
 
+import com.frame.MainFrame;
+import com.others.State;
 import com.others.Tools;
 
 import javax.swing.*;
@@ -15,6 +17,9 @@ public class Thanks {
                 while (true){
                     Thread.sleep(100);
                     Tools.cgJLabelImg(jLabel,"Image/Thanks/a "+i++ +".png");
+
+                    if (MainFrame.actionState!= State.THANKS)
+                        break;
                 }
             }catch (Exception e){
                 e.printStackTrace();

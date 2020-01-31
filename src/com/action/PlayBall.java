@@ -14,10 +14,9 @@ public class PlayBall {
         new Thread(()->{
             int i=1;
             try{
-                while (true){
+                while (i<83){
                     Thread.sleep(100);
                     Tools.cgJLabelImg(jLabel,"Image/PlayBall/y "+i++ +".png");
-                    if (i>82) i=0;
 
                     if (MainFrame.actionState!= State.PLAYBALL){
                         break;

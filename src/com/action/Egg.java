@@ -13,15 +13,20 @@ public class Egg {
 
         new Thread(()->{
             int i=1;
+            int times=1;
             try{
                 while (true){
                     Thread.sleep(100);
                     Tools.cgJLabelImg(jLabel,"Image/Egg/r "+i++ +".png");
-                    if (i>8) i=0;
-
+                    if (i>=8) {
+                        i=0;
+                        times++;
+                    }
                     if (MainFrame.actionState!= State.EGG){
                         break;
                     }
+                    if (times>=8)
+                        break;
                 }
             }catch (Exception e){
                 e.printStackTrace();

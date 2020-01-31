@@ -168,7 +168,7 @@ public class MainFrame {
 			ImageIcon icon=new ImageIcon("Image/MainIcon.png");
 			Image image=icon.getImage().getScaledInstance(icon.getIconWidth(), icon.getIconHeight(), Image.SCALE_DEFAULT);
 
-			TrayIcon trayIcon = new TrayIcon(image,Setting.name,popMenu);
+			TrayIcon trayIcon = new TrayIcon(image,"Wxl的火柴人",popMenu);
 			trayIcon.setImageAutoSize(true); // 自适应尺寸，这个属性至关重要
 
 			try {
@@ -332,6 +332,7 @@ public class MainFrame {
 			if(!MainFrame.haveOtherFrame) {
 				setEggAction();
 				Tools.pauseProgram(5);
+
 			}
 			else{
 				try {
@@ -349,7 +350,8 @@ public class MainFrame {
 		while(Setting.getAge()>=0&&Setting.getAge()<5){
 			if(!MainFrame.haveOtherFrame) {
 				setBabyAction();
-				Tools.pauseProgram(5);
+				Tools.pauseProgram(2);
+
 			}
 			else{
 				try {
@@ -368,6 +370,7 @@ public class MainFrame {
 			if(!MainFrame.haveOtherFrame) {
 				setPlayBallAction();
 				Tools.pauseProgram(8);
+
 				if (isHungry()){
 					actionState=State.HUNGRY;
 					mainFrame.remove(jLabel);
