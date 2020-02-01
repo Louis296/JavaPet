@@ -83,9 +83,9 @@ public class BabyFoodFrame {
 
     private void setBabyFoodList(){
         FoodList<Food> fs=new FoodList<>("婴儿食品");
-        fs.add(new Food("肉松","礼拜四：麻麻麻麻我要吃肉松嘛！！！\n  zzw:醒醒礼拜四这个程序里面没有你！这是火柴人的特供肉松！！",0.5));
-        fs.add(new Food("黄油","一种热量非常高的食物，它的特点是喜欢穿粉色的衣服（不是）",0.5));
-        fs.add(new Food("牛奶","一瓶平凡的牛奶，wxl跑步后经常会买一杯",0.3));
+        fs.add(new Food("肉松","礼拜四：麻麻麻麻我要吃肉松嘛！！！\n  zzw:醒醒礼拜四这个程序里面没有你！这是火柴人的特供肉松！！",1.5));
+        fs.add(new Food("黄油","一种热量非常高的食物，它的特点是喜欢穿粉色的衣服（不是）",1.5));
+        fs.add(new Food("牛奶","一瓶平凡的牛奶，wxl跑步后经常会买一杯",1));
         foods=fs;
     }
 
@@ -102,4 +102,5 @@ public class BabyFoodFrame {
             }
         }
     }
+
 }

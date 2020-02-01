@@ -1,7 +1,5 @@
 package com.others;
 
-import com.frame.MainFrame;
-
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
@@ -49,7 +47,7 @@ public class Setting {
             firstRun=true;
             name="？？？";
             sex="？？？";
-            age=3;
+            age=99;
             hobby="？？？";
             onTop =true;
             incubatePresent=0;

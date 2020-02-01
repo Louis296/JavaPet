@@ -72,7 +72,7 @@ public class Tools {
         else
             couldEat=false;
         if (couldEat){
-            current.add(Calendar.HOUR_OF_DAY,3);
+            current.add(Calendar.HOUR_OF_DAY,2);
             Setting.nextEatCalendar =current;
         }
         return couldEat;

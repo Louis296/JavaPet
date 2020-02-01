@@ -7,6 +7,7 @@ import com.others.Tools;
 import javax.swing.*;
 
 public class Egg {
+
     public JLabel go(){
         JLabel jLabel=new JLabel();
         Tools.cgJLabelImg(jLabel,"Image/Egg/r 0.png");
@@ -55,6 +56,7 @@ public class Egg {
                 e.printStackTrace();
             }
         }).start();
+
         return jLabel;
     }
 }

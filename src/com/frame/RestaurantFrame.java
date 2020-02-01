@@ -161,13 +161,19 @@ public class RestaurantFrame {
         baiJingYuan.add(new Food("灌汤包","wxl&zzw:原来华科也会有这么噩梦的东西，始料未及",0.1));
         baiJingYuan.add(new Food("自助餐","wxl:“这么多好吃的东西啊！有一种皇上选妃的感觉”，“这个好好吃，这个也好好吃”",2));
         FoodList<Food> xiaoChiCheng=new FoodList<>("小吃城");
-
+        xiaoChiCheng.add(new Food("烤肉饭","wxl在小吃城的最爱，每次吃到这个饭就会不理zzw（哼！吃醋！）",2));
+        xiaoChiCheng.add(new Food("肠粉","在吃这个东西之前，wxl一直觉得肠粉不好吃。但吃过之后，wxl天天问zzw什么时候带她去吃肠粉。",2));
+        xiaoChiCheng.add(new Food("铁板烤肉饭","在又软又嫰的肉上刷上一层酱汁，再配上wxl最喜欢的配菜和米饭，绝对是难得的极品美味",2));
         FoodList<Food> jiJinYuan=new FoodList<>("集锦园");
-
+        jiJinYuan.add(new Food("小炒任选二","集锦园的小炒品味繁多，总是能够受到wxl的青睐。不过这里的小炒比不上西一",2));
+        jiJinYuan.add(new Food("蜜汁叉烧饭","zzw觉得很好吃的东西，并向wxl反复推荐，但可惜因为太甜了而没有受到wxl的青睐",1));
         FoodList<Food> dongYi=new FoodList<>("东一");
-
+        dongYi.add(new Food("麻辣香锅","很辣很辣，和华农的麻辣香锅没有什么区别，甚至还更辣一点，还好wxl从来没吃过（小声）",0.2));
+        dongYi.add(new Food("烧鹅饭","很油也很腻，偶尔吃一口会觉得很好吃，但吃多了就会觉得有些恶心",1));
+        dongYi.add(new Food("鸭腿","又硬又干的鸭腿，仿佛在制作之前被抽干了所有水分，一口咬下去都是干涩的肉质纤维，非常恶心",0.1));
         FoodList<Food> yunJiu=new FoodList<>("韵酒");
-
+        yunJiu.add(new Food("蛋饼","加了非常多的油煎出来的蛋饼，每次吃这个蛋饼的时候都觉得油好像不要钱一样，而且它身为一个蛋饼，好像并没有多少蛋",0.5));
+        yunJiu.add(new Food("干干小炒","具有奇怪魔力的小炒，第一口吃下去不会觉得很难吃，但多吃几口就会觉得嘴巴越来越干，有一种水分被抽干的奇妙感觉",0.1));
 
         restaurants.add(taoYuan);
         restaurants.add(huiYuan);
@@ -187,10 +193,7 @@ public class RestaurantFrame {
     private boolean couldGoHUST(){
         boolean couldGo;
         Calendar current=Calendar.getInstance();
-        if (current.after(Setting.nextGoHUSTCalendar))
-            couldGo=true;
-        else
-            couldGo=false;
+        couldGo= current.after(Setting.nextGoHUSTCalendar);
         if (couldGo){
             current.add(Calendar.DATE,3);
             Setting.nextGoHUSTCalendar =current;

@@ -67,6 +67,9 @@ public class FoodFrame {
                         if (foods.get(selectedIndex).getName().equals("脆皮鸡腿")){
                             JOptionPane.showMessageDialog(frame,"宝宝我爱你！");
                         }
+                        else if (foods.getName().equals("韵酒")){
+                            JOptionPane.showMessageDialog(frame,Setting.name+"：这太难吃了55555555555\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁）");
+                        }
                         else if (RestaurantFrame.atHUST){
                             JOptionPane.showMessageDialog(frame,Setting.name+"：啊这简直就是人间美味！\n(火柴人长大了"+foods.get(selectedIndex).getGrowAge()+"岁)");
                         }
@@ -77,6 +80,7 @@ public class FoodFrame {
                     else{
                         JOptionPane.showMessageDialog(frame,Setting.name+"：好撑！吃不下了！");
                     }
+
                 }
             });
             cancel.addActionListener(e->frame.setVisible(false));

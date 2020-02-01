@@ -101,6 +101,12 @@ public class MainFrame {
                 managerItem.addActionListener(e->new ManagerFrame().go());
                 popMenu.insert(managerItem,4);
 
+                if (Setting.getAge()>=99){
+                    MenuItem mailItem=new MenuItem("zzw的信");
+                    mailItem.addActionListener(e->new MailFrame().go());
+                    popMenu.insert(mailItem,5);
+                }
+
 				doAdultAction();
 			}
 		}
