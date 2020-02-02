@@ -126,7 +126,7 @@ public class MainFrame {
 	}
 
 	private void setBabyFoodItem(){
-		babyFoodItem=new MenuItem("婴儿食品小卖部");
+		babyFoodItem=new MenuItem("婴儿餐厅");
 		babyFoodItem.addActionListener(e->new BabyFoodFrame().go());
 		popMenu.insert(babyFoodItem,2);
 	}
@@ -146,7 +146,7 @@ public class MainFrame {
 
 			MenuItem itemExit=new MenuItem("退出");
 			itemExit.addActionListener(e->{
-				//暂时关闭存档的自动保存系统，方便程序调试
+				//可在此处暂时关闭存档的自动保存系统以便于程序调试
 				try {
 					FileOutputStream fs=new FileOutputStream(new File("Data.class"));
 					ObjectOutputStream objectOutputStream=new ObjectOutputStream(fs);
@@ -477,39 +477,48 @@ public class MainFrame {
         Point currentPoint =new Point();
         @Override
         public void itemStateChanged(ItemEvent e) {
-            haveOtherFrame=true;
-            actionState=State.FOLLLOW;
-            mainFrame.remove(jLabel);
-            jLabel=new Follow().go();
-            mainFrame.add(jLabel);
+        	if (checkFollowItem.getState()){
 
-            new Thread(()->{
-                try {
-                    while (checkFollowItem.getState()){
-                        PointerInfo pointerInfo=MouseInfo.getPointerInfo();
-                        currentPoint=pointerInfo.getLocation();
-                        Thread.sleep(20);
-                    }
-                }catch (Exception ex){
-                    ex.printStackTrace();
-                }
-            }).start();
+				haveOtherFrame=true;
+				actionState=State.FOLLLOW;
+				mainFrame.remove(jLabel);
+				jLabel=new Follow().go();
+				mainFrame.add(jLabel);
+				mainFrame.repaint();
 
-            new Thread(()->{
-                while (checkFollowItem.getState()){
+				new Thread(()->{
+					try {
+						while (checkFollowItem.getState()){
+							PointerInfo pointerInfo=MouseInfo.getPointerInfo();
+							currentPoint=pointerInfo.getLocation();
+							Thread.sleep(20);
+						}
+					}catch (Exception ex){
+						ex.printStackTrace();
+					}
+				}).start();
 
-                    try {
-                        Thread.sleep(20);
-                    } catch (InterruptedException ex) {
-                        ex.printStackTrace();
-                    }
-                    mainFrame.setLocation(currentPoint.x+5,currentPoint.y+15);
-                }
-            }).start();
+				new Thread(()->{
+					while (checkFollowItem.getState()){
+
+						try {
+							Thread.sleep(20);
+						} catch (InterruptedException ex) {
+							ex.printStackTrace();
+						}
+						mainFrame.setLocation(currentPoint.x+5,currentPoint.y+15);
+					}
+				}).start();
+			}
 
             if (!checkFollowItem.getState()){
-            	mainFrame.setLocation(1600,25);
-                haveOtherFrame=false;
+				haveOtherFrame=false;
+				try {
+					Thread.sleep(20);
+				} catch (InterruptedException ex) {
+					ex.printStackTrace();
+				}
+				mainFrame.setLocation(1600,25);
             }
         }
     }

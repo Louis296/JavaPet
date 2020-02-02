@@ -35,7 +35,7 @@ public class RestaurantFrame {
             menuBar=new JMenuBar();
             JMenu mainMenu=new JMenu("信息/求助");
             JMenuItem infoItem=new JMenuItem("食堂营业时间");
-            infoItem.addActionListener(e->JOptionPane.showMessageDialog(frame,"早上 7:00-9:00\n中午 11:00-13:00\n晚上 18:00-20:00"));
+            infoItem.addActionListener(e->JOptionPane.showMessageDialog(frame,"早上 7:00-9:00\n中午 11:00-13:00\n晚上 18:00-22:00"));
             JMenu helpMenu=new JMenu("华农太难吃了我不想吃华农了.....");
             JMenuItem helpItem=new JMenuItem("去找zzw吃点好的！");
             helpItem.addActionListener(e1 -> {

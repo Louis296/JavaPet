@@ -102,7 +102,7 @@ public class FoodFrame {
             return true;
         if (currentHour>=11&&currentHour<=12)
             return true;
-        if (currentHour>=18&&currentHour<=19)
+        if (currentHour>=18&&currentHour<=22)
             return true;
         return false;
     }
